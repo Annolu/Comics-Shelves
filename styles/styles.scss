@@ -20,6 +20,12 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 
+h1{
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+}
+
 .wrapper{
   position: relative;
   width: 100%;
@@ -53,7 +59,18 @@ body{
   img{
     display: block;
     position: relative;
-    width: 100%
+    width: 100%;
+    backface-visibility: hidden;
+    transition: all 400ms ease;
+  }
+  &:hover{
+    img{
+      transform: rotateY(-180deg);
+    }
+    .overlayer{
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
   }
 }
 
@@ -61,17 +78,16 @@ body{
 .overlayer{
   position: absolute;
   opacity: 0;
-  transition: all 200ms ease;
-  height: 330px;
   width: 100%;
   cursor: pointer;
   z-index: 1;
-  background-color: rgba(0,0,0, .6);
+  background-color: rgba(0,0,0, .7);
+  height: 100%;
+  transition: all 400ms ease;
+  transform: rotateY(180deg);
   p{
     padding: 60px 0;
-  }
-  &:hover{
-    opacity: 1;
+    text-align: center;
   }
 }
 
@@ -106,7 +122,7 @@ footer{
 //     background-color: #0F434F;
 //     color: white;
 //     text-transform: uppercase;
-//     transition: all 200ms ease;
+//     transition: all 400ms ease;
 //     font-size: 15px;
 //     font-family: 'Roboto', sans-serif;
 //     cursor: pointer;

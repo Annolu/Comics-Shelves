@@ -36,12 +36,17 @@ window.onload=function(){
         // append imgWrapper, overlayer and img only if the img is available
         if(singleComic.thumbnail.path.split('_')[2]!=="available"){
           var title= singleComic.title;
-          console.log(singleComic);
+          //console.log(singleComic);
           //create overlayer and img-tag
           var imgWrapper= "<div class='imgWrapper'>" +
                           "<div class='overlayer'><p>" + singleComic.title + "</p><p>Number of pages: " + singleComic.pageCount + "</p></div>" +
                           "<img src= '" + singleComic.thumbnail.path + "." + singleComic.thumbnail.extension + "' /> "+
                           "</div>";
+
+                          // "<div class='imgWrapper'>" +
+                          //                 "<div class='overlayer'><p>" + singleComic.title + "</p><p>Number of pages: " + singleComic.pageCount + "</p><p>" +singleComic.description+ "</p></div>" +
+                          //                 "<img src= '" + singleComic.thumbnail.path + "." + singleComic.thumbnail.extension + "' /> "+
+                          //                 "</div>";
           $('.content').append(imgWrapper);
         }
       })
