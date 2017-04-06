@@ -1,0 +1,72 @@
+body, html {
+  height: 100%;
+  width: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #6B949E;
+  font-family: 'Roboto', sans-serif; }
+
+.wrapper {
+  position: relative;
+  width: 100%; }
+
+.content {
+  min-height: 500px;
+  display: block;
+  margin: 35px auto;
+  background-color: black;
+  position: relative;
+  border-radius: 3px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  position: relative; }
+  .content p {
+    color: white;
+    font-size: 17px; }
+
+.imgWrapper {
+  position: relative;
+  width: auto;
+  width: 20%; }
+  .imgWrapper img {
+    display: block;
+    position: relative;
+    width: 100%; }
+
+.overlayer {
+  position: absolute;
+  opacity: 0;
+  transition: all 200ms ease;
+  height: 330px;
+  width: 100%;
+  cursor: pointer;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6); }
+  .overlayer p {
+    padding: 60px 0; }
+  .overlayer:hover {
+    opacity: 1; }
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin: 0 auto; }
+  footer p {
+    font-size: 15px;
+    font-weight: 300;
+    text-align: center;
+    padding: 10px; }
+
+/*
+.clearFix{
+  content: '';
+  clear: both;
+}*/
+
+/*# sourceMappingURL=styles.css.map */
