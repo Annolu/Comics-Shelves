@@ -7,7 +7,15 @@ window.onload=function(){
     var nameSearched= $('#input').val();
     getMarvelResponse(nameSearched);
   });*/
+  var modal = document.getElementById('myModal');
+  function openModal(){
+    console.log("hello");
 
+    modal.style.display = "block";
+  }
+  $( "#content" ).click(function(e) {
+    openModal();
+  });
   getMarvelResponse();
 
   function getMarvelResponse() {
@@ -36,17 +44,11 @@ window.onload=function(){
         // append imgWrapper, overlayer and img only if the img is available
         if(singleComic.thumbnail.path.split('_')[2]!=="available"){
           var title= singleComic.title;
-          //console.log(singleComic);
           //create overlayer and img-tag
-          var imgWrapper= "<div class='imgWrapper'>" +
+          var imgWrapper= "<div class='imgWrapper' >" +
                           "<div class='overlayer'><p>" + singleComic.title + "</p><p>Number of pages: " + singleComic.pageCount + "</p></div>" +
                           "<img src= '" + singleComic.thumbnail.path + "." + singleComic.thumbnail.extension + "' /> "+
                           "</div>";
-
-                          // "<div class='imgWrapper'>" +
-                          //                 "<div class='overlayer'><p>" + singleComic.title + "</p><p>Number of pages: " + singleComic.pageCount + "</p><p>" +singleComic.description+ "</p></div>" +
-                          //                 "<img src= '" + singleComic.thumbnail.path + "." + singleComic.thumbnail.extension + "' /> "+
-                          //                 "</div>";
           $('.content').append(imgWrapper);
         }
       })
@@ -55,4 +57,25 @@ window.onload=function(){
       console.log(err);
     });
   }
+
+  // Get the modal
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
 };
