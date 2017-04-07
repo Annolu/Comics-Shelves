@@ -95,10 +95,20 @@ footer {
     background-color: #fefefe;
     margin: 2% auto;
     padding: 5px;
+    position: relative;
     border: 1px solid #888;
     width: 80%; }
-    .modal .modal-content img {
-      width: 37%; }
+  .modal img {
+    width: 37%; }
+  .modal .comic-info {
+    width: 50%;
+    display: inline-block;
+    float: right;
+    overflow-y: scroll; }
+    .modal .comic-info .characters {
+      padding-left: 0; }
+      .modal .comic-info .characters li {
+        list-style-type: none; }
   .modal .close {
     color: #aaa;
     float: right;
@@ -110,6 +120,17 @@ footer {
       text-decoration: none;
       cursor: pointer; }
 
+.bg-noscroll {
+  position: fixed; }
+
+@media (max-width: 770px) {
+  .modal img {
+    width: 50%;
+    margin: 0 auto;
+    display: block; }
+  .modal .comic-info {
+    width: 100%;
+    float: none; } }
 /*
 .clearFix{
   content: '';

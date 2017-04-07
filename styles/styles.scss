@@ -123,10 +123,27 @@ footer{
     background-color: #fefefe;
     margin: 2% auto;
     padding: 5px;
+    position: relative;
     border: 1px solid #888;
     width: 80%;
-    img{
-      width: 37%;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: flex-start;
+    // flex-wrap: wrap;
+  }
+  img{
+    width: 37%;
+  }
+  .comic-info{
+    width: 50%;
+    display: inline-block;
+    float: right;
+    overflow-y: scroll;
+    .characters{
+      padding-left: 0;
+      li{
+        list-style-type: none;
+      }
     }
   }
   .close {
@@ -142,6 +159,24 @@ footer{
     }
   }
 }
+
+.bg-noscroll{
+  position: fixed;
+}
+
+  @media (max-width: 770px) {
+    .modal{
+      img{
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+      }
+      .comic-info{
+        width: 100%;
+        float: none;
+      }
+    }
+  }
 
 // form{
 //   input{

@@ -27,72 +27,109 @@ window.onload=function(){
       hash: hash
     })
     .done(function(data) {
-      var listOfComics= data.data.results;
-      var comicsDetails= [];
-      listOfComics.forEach(function(singleComic){
-
-        if(singleComic.thumbnail.path.split('_')[2]!=="available"){
-
-          var comic={
-            title: singleComic.title,
-            id: singleComic.id,
-            imageSrc: singleComic.thumbnail.path + "." + singleComic.thumbnail.extension,
-            description: singleComic.description,
-            characters: singleComic.characters.items
-          }
-
-          comicsDetails.push(comic);
-
-          var comicWrapper= "<div class='comicWrapper' >" +
-                          "<div class='overlayer'><p class='comic-title'>" + comic.title + "</p></div>" +
-                          "<img src= '" + comic.imageSrc + "' /> "+
-                          "</div>";
-          $('.content').append(comicWrapper);
-        }
-      })
-
-      $('.content').click(function(e){
-        if(e.target.tagName === "P"){
-          openModal(e.target.innerHTML, comicsDetails);
-        }
-      })
+      parseData(data)
     })
     .fail(function(err){
       console.log(err);
     });
   }
 
-  function findDetails(title, comicsDetails){
-    for (item of comicsDetails){
-      if(title === item.title){
-        return item.imageSrc;
+  function parseData(data) {
+    var listOfComics= data.data.results;
+    var myComicsDetails= [];
+    listOfComics.forEach(function(singleComic){
 
+      var imgUrl=singleComic.thumbnail.path;
+
+      if(imgUrl.split('_')[1]!=="not"){
+
+        var comic= createComicsDetails(singleComic, myComicsDetails);
+        var comicWrapper= "<div class='comicWrapper' >" +
+                        "<div class='overlayer'><p class='comic-title'>" + comic.title + "</p></div>" +
+                        "<img src= '" + comic.imageSrc + "' /> "+
+                        "</div>";
+        $('.content').append(comicWrapper);
+      }
+    })
+    openOnClick(myComicsDetails);
+  }
+
+  function createComicsDetails(singleComic, myComicsDetails){
+
+    var charactersName=[]
+    var listOfAllChars= singleComic.characters.items
+
+    for (item of listOfAllChars){
+      charactersName.push(item.name)
+    }
+
+    var comic={
+      title: singleComic.title,
+      id: singleComic.id,
+      imageSrc: singleComic.thumbnail.path + "." + singleComic.thumbnail.extension,
+      description: singleComic.description,
+      characters: charactersName
+    }
+    myComicsDetails.push(comic);
+    //console.log(comic.characters);
+    //console.log(comic.characters);
+    return comic;
+  }
+
+  function openOnClick(myComicsDetails){
+    $('.content').click(function(e){
+      if(e.target.tagName === "P"){
+        openModal(e.target.innerHTML, myComicsDetails);
+        $('body').addClass('bg-noscroll');
+      }
+    })
+  }
+
+  function findDetails(title, myComicsDetails){
+    for (item of myComicsDetails){
+      if(title === item.title){
+        var modalData= {
+          description: item.description,
+          imageSrc:item.imageSrc,
+          characters: item.characters
+        }
+        return modalData;
       }
     }
   }
 
-  // Get the modal
   var modal = document.getElementById('myModal');
 
-  function openModal(title, comicsDetails){
+  function openModal(title, myComicsDetails){
     modal.style.display = "block";
-    $('#title').html(title);
-    var details = findDetails(title, comicsDetails);
-    $('#comicImage').attr("src", details);
+    var modalData = findDetails(title, myComicsDetails);
+    addContent(modalData,title);
   }
 
-  // Get the <span> element that closes the modal
+  function addContent(modalData,title){
+    $('#title').html(title);
+    $('#comicImage').attr("src", modalData.imageSrc);
+    $('#description').html(modalData.description);
+
+    for (item of modalData.characters)
+    $('#characters').append("<li>" + item + "</li>")
+
+    if(modalData.characters.length===0){
+      $('#characters').empty();
+    }
+  }
+
   var span = document.getElementsByClassName("close")[0];
 
-  // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
+    $('body').removeClass('bg-noscroll');
   }
 
-  // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        $('body').removeClass('bg-noscroll');
     }
   }
 };
