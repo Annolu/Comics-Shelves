@@ -7,26 +7,16 @@ window.onload=function(){
     var nameSearched= $('#input').val();
     getMarvelResponse(nameSearched);
   });*/
-  var modal = document.getElementById('myModal');
-  function openModal(){
-    console.log("hello");
 
-    modal.style.display = "block";
-  }
-  $( "#content" ).click(function(e) {
-    openModal();
-  });
   getMarvelResponse();
 
   function getMarvelResponse() {
 
     var PRIV_KEY = "c489aff329d83d09815b554f38d843ba42a5061a";
     var PUBLIC_KEY = "2a7fca050595ffa66aaf74e2b1bae70f";
-
     // new ts every request
     var ts = new Date().getTime();
     var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
-
     var url = 'http://gateway.marvel.com/v1/public/comics';
 
     $.getJSON(url, {
@@ -37,19 +27,33 @@ window.onload=function(){
       hash: hash
     })
     .done(function(data) {
-      var imageWrapper = $('#imageWrapper');
       var listOfComics= data.data.results;
-
+      var comicsDetails= [];
       listOfComics.forEach(function(singleComic){
-        // append imgWrapper, overlayer and img only if the img is available
+
         if(singleComic.thumbnail.path.split('_')[2]!=="available"){
-          var title= singleComic.title;
-          //create overlayer and img-tag
-          var imgWrapper= "<div class='imgWrapper' >" +
-                          "<div class='overlayer'><p>" + singleComic.title + "</p><p>Number of pages: " + singleComic.pageCount + "</p></div>" +
-                          "<img src= '" + singleComic.thumbnail.path + "." + singleComic.thumbnail.extension + "' /> "+
+
+          var comic={
+            title: singleComic.title,
+            id: singleComic.id,
+            imageSrc: singleComic.thumbnail.path + "." + singleComic.thumbnail.extension,
+            description: singleComic.description,
+            characters: singleComic.characters.items
+          }
+
+          comicsDetails.push(comic);
+
+          var comicWrapper= "<div class='comicWrapper' >" +
+                          "<div class='overlayer'><p class='comic-title'>" + comic.title + "</p></div>" +
+                          "<img src= '" + comic.imageSrc + "' /> "+
                           "</div>";
-          $('.content').append(imgWrapper);
+          $('.content').append(comicWrapper);
+        }
+      })
+
+      $('.content').click(function(e){
+        if(e.target.tagName === "P"){
+          openModal(e.target.innerHTML, comicsDetails);
         }
       })
     })
@@ -58,10 +62,24 @@ window.onload=function(){
     });
   }
 
-  // Get the modal
+  function findDetails(title, comicsDetails){
+    for (item of comicsDetails){
+      if(title === item.title){
+        return item.imageSrc;
 
-  // Get the button that opens the modal
-  var btn = document.getElementById("myBtn");
+      }
+    }
+  }
+
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  function openModal(title, comicsDetails){
+    modal.style.display = "block";
+    $('#title').html(title);
+    var details = findDetails(title, comicsDetails);
+    $('#comicImage').attr("src", details);
+  }
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
@@ -73,9 +91,8 @@ window.onload=function(){
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
   }
-
 };

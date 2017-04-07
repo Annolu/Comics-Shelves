@@ -34,19 +34,19 @@ h1 {
     color: white;
     font-size: 17px; }
 
-.imgWrapper {
+.comicWrapper {
   position: relative;
   width: auto;
   width: 20%; }
-  .imgWrapper img {
+  .comicWrapper img {
     display: block;
     position: relative;
     width: 100%;
     backface-visibility: hidden;
     transition: all 400ms ease; }
-  .imgWrapper:hover img {
+  .comicWrapper:hover img {
     transform: rotateY(-180deg); }
-  .imgWrapper:hover .overlayer {
+  .comicWrapper:hover .overlayer {
     opacity: 1;
     transform: rotateY(0deg); }
 
@@ -54,15 +54,19 @@ h1 {
   position: absolute;
   opacity: 0;
   width: 100%;
-  cursor: pointer;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.7);
   height: 100%;
   transition: all 400ms ease;
   transform: rotateY(180deg); }
-  .overlayer p {
-    padding: 0;
-    text-align: center; }
+  .overlayer .comic-title {
+    padding: 0 10px;
+    text-align: center;
+    position: relative;
+    top: 20%; }
+    .overlayer .comic-title:hover {
+      text-decoration: underline;
+      cursor: pointer; }
 
 footer {
   position: relative;
@@ -78,46 +82,33 @@ footer {
 /* The Modal (background) */
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: black;
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */ }
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  /* Could be more or less, depending on screen size */ }
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold; }
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer; }
+  background-color: rgba(0, 0, 0, 0.4); }
+  .modal .modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 80%; }
+    .modal .modal-content img {
+      width: 37%; }
+  .modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 20px; }
+    .modal .close:hover, .modal .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer; }
 
 /*
 .clearFix{
