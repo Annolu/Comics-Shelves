@@ -5,17 +5,19 @@ body, html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #6B949E;
   font-family: 'Roboto', sans-serif; }
 
 h1 {
   font-size: 40px;
   font-weight: 300;
-  text-align: center; }
+  text-align: center;
+  margin: 0;
+  padding-top: 25px; }
 
 .wrapper {
   position: relative;
-  width: 100%; }
+  width: 100%;
+  background-color: #6B949E; }
 
 .content {
   min-height: 500px;
@@ -83,54 +85,92 @@ footer {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
+  opacity: 0;
   background-color: black;
-  background-color: rgba(0, 0, 0, 0.4); }
+  background-color: rgba(0, 0, 0, 0.4);
+  display: block;
+  transition: all 400ms ease-in-out; }
   .modal .modal-content {
+    max-height: 570px;
     background-color: #fefefe;
     margin: 2% auto;
     padding: 5px;
     position: relative;
     border: 1px solid #888;
-    width: 80%; }
+    width: 80%;
+    overflow-y: scroll;
+    border-radius: 10px;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    background-color: #f0f4f5;
+    transition: all 500ms ease-in-out;
+    transform: translateY(-700px); }
+    .modal .modal-content.slide-in {
+      transform: translateY(0px); }
+    .modal .modal-content:after {
+      content: "";
+      display: table;
+      clear: both; }
   .modal img {
-    width: 37%; }
+    width: 37%;
+    float: left; }
+  .modal h2 {
+    font-weight: 300; }
+  .modal h3 {
+    font-weight: 300; }
+  .modal p {
+    font-size: 14px;
+    line-height: 20px; }
   .modal .comic-info {
-    width: 50%;
+    width: 59%;
     display: inline-block;
-    float: right;
-    overflow-y: scroll; }
+    float: left;
+    overflow-y: hidden;
+    padding: 10px;
+    font-weight: 300; }
     .modal .comic-info .characters {
       padding-left: 0; }
       .modal .comic-info .characters li {
         list-style-type: none; }
   .modal .close {
     color: #aaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
-    padding: 20px; }
+    right: 14px;
+    position: absolute; }
     .modal .close:hover, .modal .close:focus {
       color: black;
       text-decoration: none;
       cursor: pointer; }
 
 .bg-noscroll {
-  position: fixed; }
+  overflow: hidden; }
 
 @media (max-width: 770px) {
+  .comicWrapper {
+    width: 50%; }
+
+  .modal .modal-content {
+    width: 100%;
+    margin: 0;
+    max-height: none;
+    max-width: none;
+    height: 100%; }
   .modal img {
-    width: 50%;
     margin: 0 auto;
-    display: block; }
+    display: block;
+    float: none; }
   .modal .comic-info {
     width: 100%;
-    float: none; } }
+    float: none;
+    padding: 0; } }
 /*
 .clearFix{
   content: '';

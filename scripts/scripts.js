@@ -42,17 +42,18 @@ window.onload=function(){
       var imgUrl=singleComic.thumbnail.path;
 
       if(imgUrl.split('_')[1]!=="not"){
-
         var comic= createComicsDetails(singleComic, myComicsDetails);
+        //console.log(comic.id);
+
         var comicWrapper= "<div class='comicWrapper' >" +
-                        "<div class='overlayer'><p class='comic-title'>" + comic.title + "</p></div>" +
+                        "<div class='overlayer'><p class='comic-title' id='" + comic.id + "'>" + comic.title + "</p></div>" +
                         "<img src= '" + comic.imageSrc + "' /> "+
                         "</div>";
         $('.content').append(comicWrapper);
       }
     })
     openOnClick(myComicsDetails);
-  }
+  };
 
   function createComicsDetails(singleComic, myComicsDetails){
 
@@ -62,36 +63,37 @@ window.onload=function(){
     for (item of listOfAllChars){
       charactersName.push(item.name)
     }
-
+    //console.log(singleComic.id);
     var comic={
       title: singleComic.title,
       id: singleComic.id,
       imageSrc: singleComic.thumbnail.path + "." + singleComic.thumbnail.extension,
       description: singleComic.description,
-      characters: charactersName
+      characters: charactersName,
+      pageCount: singleComic.pageCount
     }
     myComicsDetails.push(comic);
-    //console.log(comic.characters);
-    //console.log(comic.characters);
     return comic;
   }
 
   function openOnClick(myComicsDetails){
     $('.content').click(function(e){
       if(e.target.tagName === "P"){
-        openModal(e.target.innerHTML, myComicsDetails);
-        $('body').addClass('bg-noscroll');
+        openModal(e.target.innerHtml, myComicsDetails, e.target.id);
       }
     })
   }
 
-  function findDetails(title, myComicsDetails){
+  function findDetails(comicID, myComicsDetails){
+
     for (item of myComicsDetails){
-      if(title === item.title){
+      // parseInt because otherwise one is a string and the other is a number
+      if(parseInt(comicID,10) === item.id){
         var modalData= {
           description: item.description,
           imageSrc:item.imageSrc,
-          characters: item.characters
+          characters: item.characters,
+          pageCount: item.pageCount
         }
         return modalData;
       }
@@ -100,36 +102,63 @@ window.onload=function(){
 
   var modal = document.getElementById('myModal');
 
-  function openModal(title, myComicsDetails){
-    modal.style.display = "block";
-    var modalData = findDetails(title, myComicsDetails);
+  function openModal(title, myComicsDetails, comicID){
+    //modal.style.display = "block";
+    modal.style.opacity = "1";
+    modal.style.zIndex = "1";
+    $('.modal-content').addClass('slide-in');
+    $('body').addClass('bg-noscroll');
+    //finds the data relative to the comic clicked on
+    var modalData = findDetails(comicID, myComicsDetails);
+    // and updates it to the modal
     addContent(modalData,title);
   }
 
   function addContent(modalData,title){
     $('#title').html(title);
-    $('#comicImage').attr("src", modalData.imageSrc);
-    $('#description').html(modalData.description);
 
-    for (item of modalData.characters)
-    $('#characters').append("<li>" + item + "</li>")
+    $('#comicImage').attr("src", modalData.imageSrc);
+
+    if(modalData.pageCount>0){
+      $('#pageCount').html('Number of pages: ' + modalData.pageCount);
+    }else{
+      $('#pageCount').empty();
+    }
+
+    if(modalData.description){
+      $('#description').html(modalData.description);
+    }else{
+      $('#description').html('Description not available.');
+    }
 
     if(modalData.characters.length===0){
       $('#characters').empty();
+      $('#characters').append("<li>Characters not available.</li>")
+    }else{
+      $('#characters').empty();
+      for (item of modalData.characters){
+        $('#characters').append("<li>" + item + "</li>")
+      }
     }
   }
 
   var span = document.getElementsByClassName("close")[0];
 
   span.onclick = function() {
-    modal.style.display = "none";
-    $('body').removeClass('bg-noscroll');
+    closeModal()
   }
 
   window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
-        $('body').removeClass('bg-noscroll');
+      closeModal()
     }
+  }
+
+  function closeModal(){
+    //modal.style.display = "none";
+    $('body').removeClass('bg-noscroll');
+    $('.modal-content').removeClass('slide-in');
+    modal.style.opacity = "0";
+    modal.style.zIndex = "0";
   }
 };
