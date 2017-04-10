@@ -1,21 +1,7 @@
 $main-colour: #6B949E;
 $main-lightBg: #f0f4f5;
 
-@mixin bubleAnimation($name,$height,$scale) {
-  @keyframes #{$name} {
-    0%{
-      transform: translateY($height) scale(0);
-      opacity: 1;
-    }
-    90%{
-      opacity: 0.8;
-    }
-    100%{
-      transform: translateY(0px) scale($scale);
-      opacity: 0;
-    }
-  }
-}
+@import "_mixins";
 
 body, html{
   height: 100%;
@@ -44,6 +30,27 @@ h1{
   bottom: 0;
   background-color: $main-lightBg;
   z-index: 5;
+  p{
+    text-align: center;
+    position: absolute;
+    bottom: 200px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(0,0,0,0.6);
+    &:after {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: bottom;
+      -webkit-animation: ellipsis steps(4,end) 1.5s infinite;
+      animation: ellipsis steps(4,end) 1.5s infinite;
+      content: "\2026";
+      width: 0px;
+      position: absolute;
+    }
+  }
   .spinner{
     position: relative;
     opacity: 0;
@@ -52,34 +59,25 @@ h1{
     text-align: center;
     height: 25px;
     width: 25px;
-    background-color: $main-colour;
     border-radius: 50%;
-    &.dot-one{
-      animation: bubleUp 1.5s linear infinite;
-      left: random(70)- 50 + px;
-    }
-    &.dot-two{
-      animation: bubleLower 1.2s linear infinite 220ms;
-      background-color: black;
-      left: random(70)- 50 + px;
-    }
-    &.dot-three{
-      animation: bubleUp 1s linear infinite 470ms;
-          left: random(70)- 50 + px;
-    }
-    &.dot-four{
-      animation: bubleLower 1.7s linear infinite 370ms;
-      left: random(70)- 50 + px;
-      background-color: black;
-    }
+    @include spinnerAnimation(1, bubleUp, 1.5s, 0s, $main-colour);
+    @include spinnerAnimation(2, bublelower, 1.2s, 220ms, black);
+    @include spinnerAnimation(3, bubleUp, 1s, 470ms, $main-colour);
+    @include spinnerAnimation(4, bubleLower, 1.7s, 370ms, black);
   }
 }
 
 @include bubleAnimation(bubleUp, 70px, 1.2);
 @include bubleAnimation(bubleLower, 50px, 1);
 
+@keyframes ellipsis {
+  to {
+    width: 25px;
+  }
+}
+
 .wrapper{
-  //display: none;
+  // display: none;
   position: relative;
   width: 100%;
   background-color: $main-colour;
@@ -153,10 +151,10 @@ footer{
     text-align: center;
     padding: 10px;
     padding-bottom: 15px;
+    margin: 0;
   }
 }
 
-/* The Modal (background) */
 .modal {
   display: none;
   position: fixed;
@@ -166,7 +164,6 @@ footer{
   width: 100%;
   height: 100%;
   opacity: 0;
-  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
   display: block;
   transition: all 400ms ease-in-out;
@@ -199,10 +196,7 @@ footer{
     width: 37%;
     float: left;
   }
-  h2{
-    font-weight: 300;
-  }
-  h3{
+  h2,h3{
     font-weight: 300;
   }
   p{
@@ -248,13 +242,13 @@ footer{
   }
 }
 
-
 @media (max-width: 770px) {
 
   .modal{
     .modal-content{
       width: 100%;
       margin: 0;
+      padding: 0;
       max-height: none;
       max-width: none;
       height: 100%
@@ -278,8 +272,6 @@ footer{
     width: 50%;
   }
 }
-
-
 
 // form{
 //   input{
