@@ -1,12 +1,21 @@
-// @mixin grid($cols,$mgn){
-//   float: left;
-//   margin-right: $mgn;
-//   margin-bottom: $mgn;
-//   width: ((100% - (($cols - 1) * $mgn)) / $cols);
-//   &:nth-child(#{$cols}n){
-//     margin-right: 0;
-//   }
-// }
+$main-colour: #6B949E;
+$main-lightBg: #f0f4f5;
+
+@mixin bubleAnimation($name,$height,$scale) {
+  @keyframes #{$name} {
+    0%{
+      transform: translateY($height) scale(0);
+      opacity: 1;
+    }
+    90%{
+      opacity: 0.8;
+    }
+    100%{
+      transform: translateY(0px) scale($scale);
+      opacity: 0;
+    }
+  }
+}
 
 body, html{
   height: 100%;
@@ -27,10 +36,53 @@ h1{
   padding-top: 25px;
 }
 
+.spinner-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $main-lightBg;
+  z-index: 5;
+  .spinner{
+    position: relative;
+    opacity: 0;
+    top: 220px;
+    margin: 0 auto;
+    text-align: center;
+    height: 25px;
+    width: 25px;
+    background-color: $main-colour;
+    border-radius: 50%;
+    &.dot-one{
+      animation: bubleUp 1.5s linear infinite;
+      left: random(70)- 50 + px;
+    }
+    &.dot-two{
+      animation: bubleLower 1.2s linear infinite 220ms;
+      background-color: black;
+      left: random(70)- 50 + px;
+    }
+    &.dot-three{
+      animation: bubleUp 1s linear infinite 470ms;
+          left: random(70)- 50 + px;
+    }
+    &.dot-four{
+      animation: bubleLower 1.7s linear infinite 370ms;
+      left: random(70)- 50 + px;
+      background-color: black;
+    }
+  }
+}
+
+@include bubleAnimation(bubleUp, 70px, 1.2);
+@include bubleAnimation(bubleLower, 50px, 1);
+
 .wrapper{
+  //display: none;
   position: relative;
   width: 100%;
-  background-color: #6B949E;
+  background-color: $main-colour;
 }
 
 .content{
@@ -52,26 +104,21 @@ h1{
   }
 }
 
-.comicWrapper{
-  //@include grid(5, 5%);
+.comic-wrapper{
   position: relative;
   width: auto;
   width: 20%;
+  &:hover{
+    .overlayer{
+      opacity: 1;
+    }
+  }
   img{
     display: block;
     position: relative;
     width: 100%;
     backface-visibility: hidden;
-    transition: all 400ms ease;
-  }
-  &:hover{
-    img{
-      transform: rotateY(-180deg);
-    }
-    .overlayer{
-      opacity: 1;
-      transform: rotateY(0deg);
-    }
+    transition: all 200ms ease;
   }
 }
 
@@ -82,16 +129,15 @@ h1{
   z-index: 1;
   background-color: rgba(0,0,0, .7);
   height: 100%;
-  transition: all 400ms ease;
-  transform: rotateY(180deg);
+  transition: all 200ms ease;
   .comic-title{
     padding: 0 10px;
     text-align: center;
     position: relative;
-    top: 20%;
+    top: 30%;
+    cursor:pointer;
     &:hover{
       text-decoration: underline;
-      cursor:pointer;
     }
   }
 }
@@ -106,6 +152,7 @@ footer{
     font-weight: 300;
     text-align: center;
     padding: 10px;
+    padding-bottom: 15px;
   }
 }
 
@@ -118,7 +165,6 @@ footer{
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   opacity: 0;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
@@ -137,16 +183,12 @@ footer{
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-    background-color: #f0f4f5;
+    background-color: $main-lightBg;
     transition: all 500ms ease-in-out;
     transform: translateY(-700px);
     &.slide-in{
       transform: translateY(0px);
       }
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: flex-start;
-    // flex-wrap: wrap;
     &:after{
       content: "";
       display: table;
@@ -187,6 +229,7 @@ footer{
     font-weight: bold;
     right: 14px;
     position: absolute;
+    transition: all 200ms ease-in-out;
     &:hover, &:focus{
       color: black;
       text-decoration: none;
@@ -199,31 +242,42 @@ footer{
   overflow: hidden;
 }
 
-  @media (max-width: 770px) {
-    .comicWrapper{
-      width: 50%;
-    }
-    .modal{
-      .modal-content{
-        width: 100%;
-        margin: 0;
-        max-height: none;
-        max-width: none;
-        height: 100%
-      }
-      img{
-        margin: 0 auto;
-        display: block;
-        float: none;
+@media (max-width: 880px){
+  .comic-wrapper{
+    width: 25%;
+  }
+}
 
-      }
-      .comic-info{
-        width: 100%;
-        float: none;
-        padding: 0;
-      }
+
+@media (max-width: 770px) {
+
+  .modal{
+    .modal-content{
+      width: 100%;
+      margin: 0;
+      max-height: none;
+      max-width: none;
+      height: 100%
+    }
+    img{
+      margin: 0 auto;
+      display: block;
+      float: none;
+
+    }
+    .comic-info{
+      width: 100%;
+      float: none;
+      padding: 0;
     }
   }
+}
+
+@media (max-width: 550px) {
+  .comic-wrapper{
+    width: 50%;
+  }
+}
 
 
 
