@@ -44,7 +44,7 @@ h1{
       overflow: hidden;
       display: inline-block;
       vertical-align: bottom;
-      -webkit-animation: ellipsis steps(4,end) 1.5s infinite;
+      -webkit-animation: ellipsis steps(4,end) 2s infinite;
       animation: ellipsis steps(4,end) 1.5s infinite;
       content: "\2026";
       width: 0px;
@@ -61,7 +61,7 @@ h1{
     width: 25px;
     border-radius: 50%;
     @include spinnerAnimation(1, bubleUp, 1.5s, 0s, $main-colour);
-    @include spinnerAnimation(2, bublelower, 1.2s, 220ms, black);
+    @include spinnerAnimation(2, bubleLower, 1.2s, 220ms, black);
     @include spinnerAnimation(3, bubleUp, 1s, 470ms, $main-colour);
     @include spinnerAnimation(4, bubleLower, 1.7s, 370ms, black);
   }
@@ -210,7 +210,7 @@ footer{
     overflow-y: hidden;
     padding: 10px;
     font-weight: 300;
-    .characters{
+    .characters, .creators{
       padding-left: 0;
       li{
         list-style-type: none;

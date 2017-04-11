@@ -8,6 +8,16 @@ window.onload=function(){
     getMarvelResponse(nameSearched);
   });*/
 
+  function createLoader(){
+    $('.spinner-wrapper').prepend("<div class='spinner-content'></div>")
+    $('.spinner-wrapper').append("<p>Loading</p>")
+    for (var i = 1; i < 5; i++) {
+      $('.spinner-content').append("<div class='spinner buble-" + i + "'></div>")
+    }
+  }
+
+  createLoader()
+
   getMarvelResponse();
 
   function getMarvelResponse() {
@@ -59,16 +69,23 @@ window.onload=function(){
         $('#content').append(comicWrapper);
       }
     })
+    //detects the click that opens the modal
     openOnClick(myComicsDetails);
   };
 
   function gatherComicsDetails(singleComic, myComicsDetails){
 
-    var charactersName=[]
-    var listOfAllChars= singleComic.characters.items
+    var charactersNames=[];
+    var creatorsNames=[]
+    var listOfAllChars= singleComic.characters.items;
+    var listOfAllCreators= singleComic.creators.items;
+
+    for (item of listOfAllCreators){
+      creatorsNames.push(item.name + " as: " + item.role)
+    }
 
     for (item of listOfAllChars){
-      charactersName.push(item.name)
+      charactersNames.push(item.name)
     }
     //console.log(singleComic.id);
     var comic={
@@ -76,7 +93,8 @@ window.onload=function(){
       id: singleComic.id,
       imageSrc: singleComic.thumbnail.path + "." + singleComic.thumbnail.extension,
       description: singleComic.description,
-      characters: charactersName,
+      characters: charactersNames,
+      creators: creatorsNames,
       pageCount: singleComic.pageCount
     }
     myComicsDetails.push(comic);
@@ -115,7 +133,8 @@ window.onload=function(){
           description: item.description,
           imageSrc:item.imageSrc,
           characters: item.characters,
-          pageCount: item.pageCount
+          pageCount: item.pageCount,
+          creators: item.creators
         }
         //add content to modal
         addContent(modalData);
@@ -125,7 +144,7 @@ window.onload=function(){
 
   function addContent(modalData){
     //ecmascript6 destructing assignment
-    let {title, imageSrc, pageCount, description, characters} = modalData;
+    let {title, description, imageSrc,characters, pageCount, creators} = modalData;
 
     $('#title').html(title);
     $('#comicImage').attr("src", imageSrc);
@@ -140,6 +159,16 @@ window.onload=function(){
       $('#description').html(description);
     }else{
       $('#description').html('Description not available.');
+    }
+
+    if(creators.length===0){
+      $('#creators').empty();
+      $('#creators').append("<li>Creators not available.</li>")
+    }else{
+      $('#creators').empty();
+      for (item of creators){
+        $('#creators').append("<li>" + item + "</li>")
+      }
     }
 
     if(characters.length===0){
