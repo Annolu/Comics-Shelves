@@ -25,14 +25,14 @@ window.onload=function(){
   var ts = new Date().getTime();
   var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
 
-  var url = 'http://gateway.marvel.com/v1/public/comics';
+  var url = 'https://gateway.marvel.com/v1/public/comics';
 
 
 
   fetchData(nameSearched);
   function fetchData(nameSearched){
     if(nameSearched){
-      url = 'http://gateway.marvel.com/v1/public' + '/characters';
+      url = 'https://gateway.marvel.com/v1/public' + '/characters';
     }
     $.getJSON(url, {
       ts: ts,
