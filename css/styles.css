@@ -21,7 +21,7 @@ h1 {
   right: 0;
   bottom: 0;
   background-color: #f0f4f5;
-  z-index: 5; }
+  z-index: 4; }
   .spinner-wrapper p {
     text-align: center;
     position: absolute;
@@ -53,19 +53,19 @@ h1 {
     .spinner-wrapper .spinner.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background-color: #6B949E;
-      left: -14px; }
+      left: -20px; }
     .spinner-wrapper .spinner.buble-2 {
       animation: bublelower 1.2s linear infinite 220ms;
       background-color: black;
-      left: 9px; }
+      left: 20px; }
     .spinner-wrapper .spinner.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background-color: #6B949E;
-      left: -17px; }
+      left: -19px; }
     .spinner-wrapper .spinner.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background-color: black;
-      left: -13px; }
+      left: -16px; }
 
 @keyframes bubleUp {
   0% {

@@ -17,7 +17,7 @@ window.onload=function(){
     // new ts every request
     var ts = new Date().getTime();
     var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
-    var url = 'http://gateway.marvel.com/v1/public/comics';
+    var url = 'https://gateway.marvel.com/v1/public/comics';
 
     $.getJSON(url, {
       ts: ts,
