@@ -210,10 +210,18 @@ footer{
     overflow-y: hidden;
     padding: 10px;
     font-weight: 300;
-    .characters, .creators{
+    .creators, .characters, .comics{
       padding-left: 0;
       li{
         list-style-type: none;
+      }
+    }
+    .characters{
+      li{
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -234,6 +242,43 @@ footer{
 
 .bg-noscroll{
   overflow: hidden;
+}
+
+.tooltip {
+    position: relative;
+    &:hover{
+      .tooltiptext {
+          visibility: visible;
+      }
+    }
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    height: 120px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 0;
+    img{
+      width: 100%;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+    }
 }
 
 @media (max-width: 880px){

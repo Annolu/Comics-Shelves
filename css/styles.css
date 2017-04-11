@@ -53,19 +53,19 @@ h1 {
     .spinner-wrapper .spinner.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background-color: #6B949E;
-      left: 7px; }
+      left: 10px; }
     .spinner-wrapper .spinner.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background-color: black;
-      left: -14px; }
+      left: -4px; }
     .spinner-wrapper .spinner.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background-color: #6B949E;
-      left: -5px; }
+      left: 23px; }
     .spinner-wrapper .spinner.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background-color: black;
-      left: 16px; }
+      left: -22px; }
 
 @keyframes bubleUp {
   0% {
@@ -202,10 +202,13 @@ footer {
     overflow-y: hidden;
     padding: 10px;
     font-weight: 300; }
-    .modal .comic-info .characters, .modal .comic-info .creators {
+    .modal .comic-info .creators, .modal .comic-info .characters, .modal .comic-info .comics {
       padding-left: 0; }
-      .modal .comic-info .characters li, .modal .comic-info .creators li {
+      .modal .comic-info .creators li, .modal .comic-info .characters li, .modal .comic-info .comics li {
         list-style-type: none; }
+    .modal .comic-info .characters li:hover {
+      text-decoration: underline;
+      cursor: pointer; }
   .modal .close {
     color: #aaa;
     font-size: 28px;
@@ -220,6 +223,36 @@ footer {
 
 .bg-noscroll {
   overflow: hidden; }
+
+.tooltip {
+  position: relative; }
+  .tooltip:hover .tooltiptext {
+    visibility: visible; }
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  height: 120px;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 0; }
+  .tooltip .tooltiptext img {
+    width: 100%; }
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent; }
 
 @media (max-width: 880px) {
   .comic-wrapper {

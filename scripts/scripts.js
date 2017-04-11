@@ -15,34 +15,55 @@ window.onload=function(){
       $('.spinner-content').append("<div class='spinner buble-" + i + "'></div>")
     }
   }
+  var nameSearched;
 
   createLoader()
 
-  getMarvelResponse();
+  var PRIV_KEY = "c489aff329d83d09815b554f38d843ba42a5061a";
+  var PUBLIC_KEY = "2a7fca050595ffa66aaf74e2b1bae70f";
+  // new ts every request
+  var ts = new Date().getTime();
+  var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
 
-  function getMarvelResponse() {
+  var url = 'http://gateway.marvel.com/v1/public/comics';
 
-    var PRIV_KEY = "c489aff329d83d09815b554f38d843ba42a5061a";
-    var PUBLIC_KEY = "2a7fca050595ffa66aaf74e2b1bae70f";
-    // new ts every request
-    var ts = new Date().getTime();
-    var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
-    var url = 'https://gateway.marvel.com/v1/public/comics';
 
+
+  fetchData(nameSearched);
+  function fetchData(nameSearched){
+    if(nameSearched){
+      url = 'http://gateway.marvel.com/v1/public' + '/characters';
+    }
     $.getJSON(url, {
       ts: ts,
       apikey: PUBLIC_KEY,
       limit: 100,
-      //name: nameSearched,
+      name: nameSearched,
       hash: hash
     })
     .done(function(data) {
-      parseData(data)
+      if(data.data.results.length===1){
+        createCharsObj(data);
+      }else{
+        parseData(data)
+      }
       hideLoader()
     })
     .fail(function(err){
       console.log(err);
     });
+  }
+
+  function createCharsObj(data){
+
+    var character= data.data.results[0];
+    var imageSrc= character.thumbnail.path + "." + character.thumbnail.extension;
+    let listOfCharacters= $('.singleCharacter');
+    for (item of listOfCharacters){
+      if(item.innerHTML== character.name){
+        $(item).append("<span class='tooltiptext'><img src='"+imageSrc+"'></img></span>")
+      }
+    }
   }
 
   function hideLoader(){
@@ -148,36 +169,63 @@ window.onload=function(){
 
     $('#title').html(title);
     $('#comicImage').attr("src", imageSrc);
+    addPageCount(pageCount)
+    addDescription(description)
+    addCreators(creators)
 
-    if(pageCount>0){
+
+    if(characters){
+      addCharacters(characters)
+    }else{
+      $('#characters').empty();
+    }
+  }
+
+  function addPageCount(pageCount){
+    if(pageCount){
       $('#pageCount').html('Number of pages: ' + pageCount);
     }else{
       $('#pageCount').empty();
     }
+  }
 
+  function addDescription(description){
     if(description){
       $('#description').html(description);
     }else{
       $('#description').html('Description not available.');
     }
+  }
 
-    if(creators.length===0){
-      $('#creators').empty();
-      $('#creators').append("<li>Creators not available.</li>")
-    }else{
-      $('#creators').empty();
-      for (item of creators){
-        $('#creators').append("<li>" + item + "</li>")
+  function addCharacters(characters){
+
+    if(characters){
+      if(characters.length===0){
+        $('#characters').empty();
+        $('#characters').append("<li>Characters not available.</li>");
+      }else{
+        $('#characters').empty();
+        for (item of characters){
+          $('#characters').append("<li class='singleCharacter tooltip'>" + item + "</li>");
+        }
+        $('.singleCharacter').mouseover(function(e){
+          nameSearched= e.target.innerHTML;
+          fetchData(nameSearched);
+        })
       }
     }
+  }
 
-    if(characters.length===0){
-      $('#characters').empty();
-      $('#characters').append("<li>Characters not available.</li>")
-    }else{
-      $('#characters').empty();
-      for (item of characters){
-        $('#characters').append("<li>" + item + "</li>")
+  function addCreators(creators){
+    if(creators){
+      if(creators.length===0){
+        $('#creators').empty();
+        $('#creators').append("<li>Creators not available.</li>")
+      }else{
+        $('#creators').empty();
+        for (item of creators){
+          $('#creators').append("<li>" + item + "</li>")
+        }
       }
     }
   }
@@ -195,7 +243,6 @@ window.onload=function(){
   }
 
   function closeModal(){
-    //modal.style.display = "none";
     $('body').removeClass('bg-noscroll');
     $('#modal-content').removeClass('slide-in');
     modal.style.opacity = "0";
