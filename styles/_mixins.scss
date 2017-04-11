@@ -1,0 +1,22 @@
+@mixin bubleAnimation($name,$height,$scale) {
+  @keyframes #{$name} {
+    0%{
+      transform: translateY($height) scale(0);
+      opacity: 1;
+    }
+    90%{
+      opacity: 0.8;
+    }
+    100%{
+      transform: translateY(0px) scale($scale);
+      opacity: 0;
+    }
+  }
+}
+@mixin spinnerAnimation($i, $animName, $animDuration, $animDelay, $bubleColour) {
+  &.buble-#{$i}{
+    animation: $animName $animDuration linear infinite $animDelay;
+    background-color: $bubleColour;
+    left: random(50) - 25 + px;
+  }
+}
