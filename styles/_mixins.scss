@@ -16,7 +16,7 @@
 @mixin spinnerAnimation($i, $animName, $animDuration, $animDelay, $bubleColour) {
   &.buble-#{$i}{
     animation: $animName $animDuration linear infinite $animDelay;
-    background-color: $bubleColour;
+    background: $bubleColour;
     left: random(50) - 25 + px;
   }
 }

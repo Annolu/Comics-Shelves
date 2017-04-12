@@ -13,10 +13,30 @@
 </head>
 <body>
   <div class="spinner-wrapper">
-    <!--<div class="spinner-two">
-      <div class="circle one"></div>
-      <div class="circle two"></div>
-    </div>-->
+  </div>
+  <div id="myModal" class="modal">
+    <div class="modal-content" id="modal-content">
+        <span class="close">&times;</span>
+      <img id=comicImage></img>
+      <div class="comic-info">
+        <h2 id="title"></h2>
+        <div>
+          <h3>Description:</h3>
+          <p id= "description"></p>
+        </div>
+        <div>
+          <p id="pageCount"></p>
+        </div>
+        <div>
+          <h3>Characters:</h3>
+          <ul id="characters" class="characters"></ul>
+        </div>
+        <div>
+          <h3>Creators:</h3>
+          <ul id= "creators" class="creators"></ul>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="wrapper">
     <header><h1>Marvels Comics</h1></header>
@@ -27,34 +47,6 @@
           <button type="submit">Enter</button>
         </form>
       </div>-->
-    </div>
-    <div id="myModal" class="modal">
-      <div class="modal-content" id="modal-content">
-          <span class="close">&times;</span>
-        <img id=comicImage></img>
-        <div class="comic-info">
-          <h2 id="title"></h2>
-          <div>
-            <h3>Description:</h3>
-            <p id= "description"></p>
-          </div>
-          <div>
-            <p id="pageCount"></p>
-          </div>
-          <div>
-            <h3>Creators:</h3>
-            <ul id= "creators" class="creators"></ul>
-          </div>
-          <div>
-            <h3>Characters:</h3>
-            <ul id="characters" class="characters"></ul>
-          </div>
-          <!--<div>
-            <h3>Comics:</h3>
-            <ul id="comics" class="comics"></ul>
-          </div>-->
-        </div>
-      </div>
     </div>
     <footer><p>"Data provided by Marvel. © 2014 Marvel"</p></footer>
   </div>

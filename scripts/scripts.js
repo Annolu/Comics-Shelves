@@ -64,9 +64,6 @@ window.onload=function(){
         var imgTag= $(item.children[0].children[0]);
         imgTag.attr("src", imageSrc);
       }
-      // if(imageSrc){
-      //   $('.circle').fadeOut(100);
-      // }
     }
   }
 
@@ -77,6 +74,7 @@ window.onload=function(){
       preloader.fadeOut(preloaderFadeOutTime)
     }
     hidePreloader();
+
   }
 
   function parseData(data) {
@@ -94,9 +92,18 @@ window.onload=function(){
         $('#content').append(comicWrapper);
       }
     })
+    animateComics()
     //detects the click that opens the modal
     openOnClick(myComicsDetails);
   };
+
+  function animateComics(){
+    $.each($(".comic-wrapper"), function( index, item ) {
+      setTimeout(function(){
+        $(item).addClass('comics-in');
+      }, 200 + ( index * 200 ));
+    });
+  }
 
   function gatherComicsDetails(singleComic, myComicsDetails){
 
@@ -141,6 +148,7 @@ window.onload=function(){
   function openModal(myComicsDetails, comicID){
     modal.style.opacity = "1";
     modal.style.zIndex = "1";
+
     $('#modal-content').addClass('slide-in');
     $('body').addClass('bg-noscroll');
     //finds the data relative to the comic clicked on, based on the id
