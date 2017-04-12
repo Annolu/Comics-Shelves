@@ -53,20 +53,39 @@ h1 {
     border-radius: 50%; }
     .spinner-wrapper .spinner.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
-      background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%);
-      left: -3px; }
+      background: rgba(250, 0, 0, 0.8);
+      left: 11px;
+      border: 1px solid rgba(46, 0, 0, 0.8); }
     .spinner-wrapper .spinner.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
-      background: radial-gradient(circle at 50% 120%, red, #0a0a0a 80%, #999 100%);
-      left: -4px; }
+      background: rgba(51, 51, 51, 0.8);
+      left: -19px;
+      border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinner.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
-      background: radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%);
-      left: 20px; }
+      background: rgba(250, 0, 0, 0.8);
+      left: 13px;
+      border: 1px solid rgba(46, 0, 0, 0.8); }
     .spinner-wrapper .spinner.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
-      background: radial-gradient(circle at 50% 120%, red, #0a0a0a 80%, #999 100%);
-      left: 1px; }
+      background: rgba(51, 51, 51, 0.8);
+      left: 7px;
+      border: 1px solid rgba(0, 0, 0, 0.8); }
+    .spinner-wrapper .spinner:after {
+      content: '';
+      position: absolute;
+      text-align: center;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      display: block;
+      top: 2px;
+      left: 2px;
+      border: 3px solid white;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      transform: rotate(20deg); }
 
 @keyframes bubleUp {
   0% {
@@ -113,7 +132,7 @@ h1 {
 
 @keyframes comicsIn {
   0% {
-    transform: translateY(150px);
+    transform: translateY(250px);
     opacity: 0; }
   100% {
     transform: translateY(0);

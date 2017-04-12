@@ -62,12 +62,30 @@ h1{
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    @include spinnerAnimation(1, bubleUp, 1.5s, 0s, radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%));
-    @include spinnerAnimation(2, bubleLower, 1.2s, 220ms, radial-gradient(circle at 50% 120%, red, #0a0a0a 80%, #999 100%));
-    @include spinnerAnimation(3, bubleUp, 1s, 470ms, radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%));
-    @include spinnerAnimation(4, bubleLower, 1.7s, 370ms, radial-gradient(circle at 50% 120%, red, #0a0a0a 80%, #999 100%));
+    @include spinnerAnimation(1, bubleUp, 1.5s, 0s, rgba(250,0,0,0.8));
+    @include spinnerAnimation(2, bubleLower, 1.2s, 220ms, rgba(51,51,51,0.8));
+    @include spinnerAnimation(3, bubleUp, 1s, 470ms, rgba(250,0,0,0.8));
+    @include spinnerAnimation(4, bubleLower, 1.7s, 370ms, rgba(51,51,51,0.8));
+    &:after{
+    content: '';
+    position: absolute;
+    text-align: center;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: block;
+    top: 2px;
+    left: 2px;
+    border: 3px solid white;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    transform: rotate(20deg);
+    }
   }
 }
+
+//radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%)
 
 
 @include bubleAnimation(bubleUp, 70px, 1.2);
@@ -107,7 +125,7 @@ h1{
 
 @keyframes comicsIn {
   0%{
-    transform: translateY(150px);
+    transform: translateY(250px);
     opacity: 0;
   }
   100%{

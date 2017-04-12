@@ -18,5 +18,6 @@
     animation: $animName $animDuration linear infinite $animDelay;
     background: $bubleColour;
     left: random(50) - 25 + px;
+    border: 1px solid darken($bubleColour, 40%);
   }
 }
