@@ -15,6 +15,7 @@ window.onload=function(){
       $('.spinner-content').append("<div class='spinner buble-" + i + "'></div>")
     }
   }
+
   var nameSearched;
 
   createLoader()
@@ -26,8 +27,6 @@ window.onload=function(){
   var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
 
   var url = 'https://gateway.marvel.com/v1/public/comics';
-
-
 
   fetchData(nameSearched);
   function fetchData(nameSearched){
@@ -45,9 +44,9 @@ window.onload=function(){
       if(data.data.results.length===1){
         createCharsObj(data);
       }else{
-        parseData(data)
+        parseData(data);
       }
-      hideLoader()
+      hideLoader();
     })
     .fail(function(err){
       console.log(err);
@@ -58,11 +57,16 @@ window.onload=function(){
 
     var character= data.data.results[0];
     var imageSrc= character.thumbnail.path + "." + character.thumbnail.extension;
-    let listOfCharacters= $('.singleCharacter');
+    let listOfCharacters= $('.single-character');
+
     for (item of listOfCharacters){
-      if(item.innerHTML== character.name){
-        $(item).append("<span class='tooltiptext'><img src='"+imageSrc+"'></img></span>")
+      if(item.children[1].innerHTML== character.name){
+        var imgTag= $(item.children[0].children[0]);
+        imgTag.attr("src", imageSrc);
       }
+      // if(imageSrc){
+      //   $('.circle').fadeOut(100);
+      // }
     }
   }
 
@@ -97,16 +101,16 @@ window.onload=function(){
   function gatherComicsDetails(singleComic, myComicsDetails){
 
     var charactersNames=[];
-    var creatorsNames=[]
+    var creatorsNames=[];
     var listOfAllChars= singleComic.characters.items;
     var listOfAllCreators= singleComic.creators.items;
 
     for (item of listOfAllCreators){
-      creatorsNames.push(item.name + " as: " + item.role)
+      creatorsNames.push(item.name + " as: " + item.role);
     }
 
     for (item of listOfAllChars){
-      charactersNames.push(item.name)
+      charactersNames.push(item.name);
     }
     //console.log(singleComic.id);
     var comic={
@@ -206,10 +210,20 @@ window.onload=function(){
       }else{
         $('#characters').empty();
         for (item of characters){
-          $('#characters').append("<li class='singleCharacter tooltip'>" + item + "</li>");
+          $('#characters').append("<li class='single-character tooltip'>" +
+                                      "<span class='tooltiptext'>" +
+                                      "<img></img>" +
+                                        "<div class='circle one'></div>" +
+                                        "<div class='circle two'></div>" +
+
+                                      "</span>" +
+                                    "<p class='charName'>" + item + "</p>"+
+                                  "</li>");
         }
-        $('.singleCharacter').mouseover(function(e){
+        $('.single-character').mouseover(function(e){
           nameSearched= e.target.innerHTML;
+          //e.target.parentElement.children[0].children[1].style.display= 'block';
+          //$('.circle').fadeIn();
           fetchData(nameSearched);
         })
       }
@@ -220,11 +234,11 @@ window.onload=function(){
     if(creators){
       if(creators.length===0){
         $('#creators').empty();
-        $('#creators').append("<li>Creators not available.</li>")
+        $('#creators').append("<li><p>Creators not available.</p></li>")
       }else{
         $('#creators').empty();
         for (item of creators){
-          $('#creators').append("<li>" + item + "</li>")
+          $('#creators').append("<li><p>" + item + "</p></li>")
         }
       }
     }

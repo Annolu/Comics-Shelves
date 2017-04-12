@@ -67,6 +67,7 @@ h1{
   }
 }
 
+
 @include bubleAnimation(bubleUp, 70px, 1.2);
 @include bubleAnimation(bubleLower, 50px, 1);
 
@@ -181,7 +182,7 @@ footer{
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     background-color: $main-lightBg;
-    transition: all 500ms ease-in-out;
+    transition: all 300ms ease-in-out;
     transform: translateY(-700px);
     &.slide-in{
       transform: translateY(0px);
@@ -202,6 +203,7 @@ footer{
   p{
     font-size: 14px;
     line-height: 20px;
+    margin: 0;
   }
   .comic-info{
     width: 59%;
@@ -216,12 +218,10 @@ footer{
         list-style-type: none;
       }
     }
-    .characters{
-      li{
-        &:hover{
-          text-decoration: underline;
-          cursor: pointer;
-        }
+    .single-character{
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
       }
     }
   }
@@ -244,16 +244,9 @@ footer{
   overflow: hidden;
 }
 
-.tooltip {
-    position: relative;
-    &:hover{
-      .tooltiptext {
-          visibility: visible;
-      }
-    }
-}
-
-.tooltip .tooltiptext {
+.tooltip{
+  position: relative;
+  .tooltiptext {
     visibility: hidden;
     height: 120px;
     width: 120px;
@@ -267,18 +260,58 @@ footer{
     bottom: 100%;
     left: 0;
     img{
+      max-height: 100%;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
-    &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: black transparent transparent transparent;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
     }
+  }
+  &:hover{
+    .tooltiptext {
+      visibility: visible;
+    }
+    .circle{
+      visibility: visible;
+    }
+  }
+}
+.circle{
+  position: relative;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 35px;
+  left: 30%;
+  visibility: hidden;
+  &.one{
+    border: 3px solid black;
+    border-top-color: white;
+    animation: animateSpinner 1000ms ease-in-out infinite;
+  }
+  &.two{
+    bottom: 73px;
+    left: 3px;
+  }
+}
+
+@keyframes animateSpinner {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 880px){

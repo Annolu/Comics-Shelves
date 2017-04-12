@@ -53,19 +53,19 @@ h1 {
     .spinner-wrapper .spinner.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background-color: #6B949E;
-      left: 10px; }
+      left: -21px; }
     .spinner-wrapper .spinner.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background-color: black;
-      left: -4px; }
+      left: 10px; }
     .spinner-wrapper .spinner.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background-color: #6B949E;
-      left: 23px; }
+      left: 6px; }
     .spinner-wrapper .spinner.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background-color: black;
-      left: -22px; }
+      left: 3px; }
 
 @keyframes bubleUp {
   0% {
@@ -179,7 +179,7 @@ footer {
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     background-color: #f0f4f5;
-    transition: all 500ms ease-in-out;
+    transition: all 300ms ease-in-out;
     transform: translateY(-700px); }
     .modal .modal-content.slide-in {
       transform: translateY(0px); }
@@ -194,7 +194,8 @@ footer {
     font-weight: 300; }
   .modal p {
     font-size: 14px;
-    line-height: 20px; }
+    line-height: 20px;
+    margin: 0; }
   .modal .comic-info {
     width: 59%;
     display: inline-block;
@@ -206,7 +207,7 @@ footer {
       padding-left: 0; }
       .modal .comic-info .creators li, .modal .comic-info .characters li, .modal .comic-info .comics li {
         list-style-type: none; }
-    .modal .comic-info .characters li:hover {
+    .modal .comic-info .single-character:hover {
       text-decoration: underline;
       cursor: pointer; }
   .modal .close {
@@ -226,34 +227,60 @@ footer {
 
 .tooltip {
   position: relative; }
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    height: 120px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 0; }
+    .tooltip .tooltiptext img {
+      max-height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 1; }
+    .tooltip .tooltiptext:after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent; }
   .tooltip:hover .tooltiptext {
     visibility: visible; }
+  .tooltip:hover .circle {
+    visibility: visible; }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  height: 120px;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+.circle {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
   position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 0; }
-  .tooltip .tooltiptext img {
-    width: 100%; }
-  .tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent; }
+  top: 35px;
+  left: 30%;
+  visibility: hidden; }
+  .circle.one {
+    border: 3px solid black;
+    border-top-color: white;
+    animation: animateSpinner 1000ms ease-in-out infinite; }
+  .circle.two {
+    bottom: 73px;
+    left: 3px; }
 
+@keyframes animateSpinner {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 @media (max-width: 880px) {
   .comic-wrapper {
     width: 25%; } }
