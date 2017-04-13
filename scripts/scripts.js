@@ -214,7 +214,7 @@ window.onload=function(){
     if(characters){
       if(characters.length===0){
         $('#characters').empty();
-        $('#characters').append("<li>Characters not available.</li>");
+        $('#characters').append("<li><p>Characters not available.</p></li>");
       }else{
         $('#characters').empty();
         for (item of characters){

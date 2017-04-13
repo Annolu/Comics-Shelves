@@ -56,7 +56,6 @@ h1{
   .spinner{
     position: relative;
     opacity: 0;
-    top: 220px;
     margin: 0 auto;
     text-align: center;
     height: 25px;
@@ -80,9 +79,17 @@ h1{
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
-    transform: rotate(20deg);
+    transform: rotate(40deg);
     }
   }
+}
+
+.spinner-content{
+  display: block;
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+  bottom: 300px;
 }
 
 //radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%)
@@ -142,7 +149,7 @@ h1{
   transform-origin: left bottom;
   transform: translateY(150px);
   &.comics-in{
-    animation: comicsIn 1s ease-in-out forwards;
+    animation: comicsIn 0.5s cubic-bezier(0,.81,.86,.98) forwards;
   }
   &:hover{
     .overlayer{
@@ -197,6 +204,7 @@ footer{
 .modal {
   display: none;
   position: fixed;
+  overflow-y: scroll;
   z-index: 0;
   left: 0;
   top: 0;
@@ -207,18 +215,19 @@ footer{
   display: block;
   transition: all 400ms ease-in-out;
   .modal-content {
-    max-height: 570px;
+    // max-height: 570px;
     margin: 2% auto;
-    padding: 5px;
+    padding: 25px;
     position: relative;
-    border: 1px solid #888;
+    border: 1px solid black;
     width: 80%;
-    overflow-y: scroll;
-    border-radius: 10px;
+    // overflow-y: scroll;
+    box-sizing: border-box;
+    // border-radius: 10px;
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-    background-color: $main-lightBg;
+    background-color: white;
     transition: all 300ms ease-in-out;
     transform: translateY(-150px);
     opacity: 0;
@@ -234,42 +243,57 @@ footer{
     }
   }
   img{
-    width: 37%;
+    width: 35%;
     float: left;
+    padding-bottom: 10px;
   }
   h2,h3{
     font-weight: 300;
+    font-size: 17px;
+    color: #444;
+    font-weight: 500;
+  }
+  h2{
+    margin-top: 0;
   }
   p{
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 13px;
+    line-height: 22px;
     margin: 0;
+    color: #444;
   }
   .comic-info{
-    width: 59%;
+    width: 62%;
+    padding-left: 20px;
     display: inline-block;
     float: left;
     overflow-y: hidden;
-    padding: 10px;
+    box-sizing: border-box;
     font-weight: 300;
     .creators, .characters, .comics{
       padding-left: 0;
+      margin: 8px 0;
       li{
         list-style-type: none;
       }
     }
     .single-character{
-      &:hover{
-        text-decoration: underline;
-        cursor: pointer;
+      p{
+        color: #76b5d8;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
+
     }
   }
   .close {
     color: #aaa;
     font-size: 28px;
     font-weight: bold;
-    right: 14px;
+    right: 25px;
+    top: 15px;
     position: absolute;
     transition: all 200ms ease-in-out;
     &:hover, &:focus{
@@ -277,6 +301,24 @@ footer{
       text-decoration: none;
       cursor: pointer;
     }
+  }
+}
+
+.chars-creat{
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;
+  &:nth-child(2){
+    padding-left: 13px;
+  }
+
+}
+
+.something{
+  &:after{
+    content: "";
+    display: table;
+    clear: both;
   }
 }
 
@@ -364,24 +406,20 @@ footer{
 @media (max-width: 770px) {
 
   .modal{
+    padding: 2%;
     .modal-content{
-      width: 100%;
+      width: 96%;
       margin: 0;
-      padding: 0;
-      max-height: none;
-      max-width: none;
-      height: 100%
     }
     img{
       margin: 0 auto;
       display: block;
       float: none;
-
     }
     .comic-info{
       width: 100%;
       float: none;
-      padding: 0;
+      padding-left: 0px;
     }
   }
 }
@@ -390,6 +428,20 @@ footer{
   .comic-wrapper{
     width: 50%;
   }
+  .spinner-content{
+    bottom: 200px;
+  }
+  .spinner-wrapper{
+    p{
+      bottom: 110px;
+    }
+  }
+  .modal{
+    .modal-content{
+      padding: 15px;
+    }
+  }
+
 }
 
 // form{
