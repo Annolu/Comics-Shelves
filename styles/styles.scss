@@ -1,6 +1,7 @@
-$main-colour: #111;
-$main-lightBg: #f0f4f5;
-$text-light: rgba(250,250,250,0.9);
+$main-dark-opaque: #111;
+$main-dark-trans: rgba(0,0,0,0.7);
+$main-text-dark: #444;
+$main-colour-light: rgba(250,250,250,0.9);
 
 @import "_mixins";
 
@@ -21,7 +22,7 @@ h1{
   text-align: center;
   margin: 0;
   padding-top: 25px;
-  color: $text-light;
+  color: $main-colour-light;
 }
 
 .spinner-wrapper{
@@ -30,7 +31,7 @@ h1{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $main-colour;
+  background-color: $main-dark-opaque;
   z-index: 4;
   p{
     text-align: center;
@@ -41,7 +42,7 @@ h1{
     width: 100%;
     font-size: 20px;
     font-weight: 300;
-    color: $text-light;
+    color: $main-colour-light;
     &:after {
       overflow: hidden;
       display: inline-block;
@@ -68,9 +69,9 @@ h1{
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    @include spinnerAnimation(1, bubleUp, 1.5s, 0s, rgba(250,0,0,0.8));
+    @include spinnerAnimation(1, bubleUp, 1.5s, 0s, rgba(250,0,0,0.7));
     @include spinnerAnimation(2, bubleLower, 1.2s, 220ms, rgba(51,51,51,0.8));
-    @include spinnerAnimation(3, bubleUp, 1s, 470ms, rgba(250,0,0,0.8));
+    @include spinnerAnimation(3, bubleUp, 1s, 470ms, rgba(250,0,0,0.7));
     @include spinnerAnimation(4, bubleLower, 1.7s, 370ms, rgba(51,51,51,0.8));
     &:after{
     content: '';
@@ -82,7 +83,7 @@ h1{
     display: block;
     top: 2px;
     left: 2px;
-    border: 3px solid white;
+    border: 3px solid $main-colour-light;
     border-top-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
@@ -95,21 +96,19 @@ h1{
 @include bubleAnimation(bubleLower, 50px, 1);
 
 @keyframes ellipsis {
-  to {
+  100% {
     width: 25px;
   }
 }
 
 .wrapper{
-  //display: none;
   position: relative;
   width: 100%;
-  background-color: $main-colour;
+  background-color: $main-dark-opaque;
   .content{
     min-height: 500px;
     display: block;
     margin: 35px auto;
-    background-color: $main-colour;
     position: relative;
     border-radius: 3px;
     width: 100%;
@@ -119,7 +118,7 @@ h1{
     flex-wrap: wrap;
     position: relative;
     p{
-      color: white;
+      color: $main-colour-light;
       font-size: 17px;
     }
   }
@@ -160,7 +159,7 @@ h1{
   opacity: 0;
   width: 100%;
   z-index: 1;
-  background-color: rgba(0,0,0, .7);
+  background-color: $main-dark-trans;
   height: 100%;
   transition: all 200ms ease;
   .comic-title{
@@ -169,6 +168,7 @@ h1{
     position: relative;
     top: 30%;
     cursor:pointer;
+    transition: all 200ms ease;
     &:hover{
       text-decoration: underline;
     }
@@ -187,41 +187,42 @@ footer{
     padding: 10px;
     padding-bottom: 15px;
     margin: 0;
-    color: $text-light;
+    color: $main-colour-light;
   }
 }
 
 .modal {
-  display: none;
   position: fixed;
   overflow-y: scroll;
-  z-index: 0;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  background-color: rgba(0,0,0,0.4);
+  background-color: $main-dark-trans;
   display: block;
-  transition: all 400ms ease-in-out;
-  // pointer-events: none;
+  visibility: hidden;
+  transition: all 300ms ease-in-out;
+  &.show-modal{
+    visibility: visible;
+  }
   .modal-content {
     margin: 2% auto;
     padding: 25px;
     position: relative;
     border: 1px solid black;
     width: 80%;
+    opacity: 0;
     box-sizing: border-box;
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
-    background-color: white;
+    -webkit-box-shadow: 5px 5px 5px 0px $main-dark-trans;
+    -moz-box-shadow: 5px 5px 5px 0px $main-dark-trans;
+    box-shadow: 5px 5px 5px 0px $main-dark-trans;
+    background-color: $main-colour-light;
     transition: all 300ms ease-in-out;
     transform: translateY(-150px);
-    opacity: 0;
     &.slide-in{
       transform: translateY(0px);
-      opacity: 1;
+      opacity: 1
       }
     &:after{
       content: "";
@@ -237,7 +238,7 @@ footer{
   h2,h3{
     font-weight: 300;
     font-size: 17px;
-    color: #444;
+    color: $main-text-dark;
     font-weight: 500;
   }
   h2{
@@ -247,7 +248,7 @@ footer{
     font-size: 13px;
     line-height: 22px;
     margin: 0;
-    color: #444;
+    color: $main-text-dark;
   }
   .comic-info{
     width: 62%;
@@ -274,7 +275,7 @@ footer{
     }
   }
   .close {
-    color: #aaa;
+    color: $main-text-dark;
     font-size: 28px;
     font-weight: bold;
     right: 25px;
@@ -282,7 +283,7 @@ footer{
     position: absolute;
     transition: all 200ms ease-in-out;
     &:hover, &:focus{
-      color: $main-colour;
+      color: $main-dark-opaque;
       text-decoration: none;
       cursor: pointer;
     }
@@ -308,8 +309,7 @@ footer{
     // display: none;
     height: 120px;
     width: 120px;
-    background-color: $main-colour;
-    color: #fff;
+    background-color: $main-dark-opaque;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -334,7 +334,7 @@ footer{
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: $main-colour transparent transparent transparent;
+      border-color: $main-colour-light transparent transparent transparent;
     }
   }
   &:hover{
@@ -356,8 +356,8 @@ footer{
     left: 30%;
     display: none;
     &.one{
-      border: 3px solid $main-colour;
-      border-top-color: white;
+      border: 3px solid $main-dark-opaque;
+      border-top-color: $main-colour-light;
       animation: animateSpinner 1000ms ease infinite;
     }
     &.two{
@@ -424,7 +424,6 @@ footer{
       padding: 15px;
     }
   }
-
 }
 
 // form{
@@ -443,7 +442,7 @@ footer{
 //     border: none;
 //     border-radius: 3px;
 //     background-color: #0F434F;
-//     color: white;
+//     color: $main-colour-light;
 //     text-transform: uppercase;
 //     transition: all 400ms ease;
 //     font-size: 15px;
@@ -451,13 +450,7 @@ footer{
 //     cursor: pointer;
 //     &:hover{
 //       background-color: #447884;
-//       color: $main-colour;
+//       color: $main-dark-opaque;
 //     }
 //   }
 // }
-
-/*
-.clearFix{
-  content: '';
-  clear: both;
-}*/

@@ -150,9 +150,7 @@ window.onload=function(){
   var modal = document.getElementById('myModal');
 
   function openModal(myComicsDetails, comicID){
-    modal.style.opacity = "1";
-    modal.style.zIndex = "1";
-
+    $('#myModal').addClass('show-modal');
     $('#modal-content').addClass('slide-in');
     $('body').addClass('bg-noscroll');
     //finds the data relative to the comic clicked on, based on the id
@@ -259,9 +257,8 @@ window.onload=function(){
   });
 
   function closeModal(){
+    $('#myModal').removeClass('show-modal');
     $('body').removeClass('bg-noscroll');
     $('#modal-content').removeClass('slide-in');
-    modal.style.opacity = "0";
-    modal.style.zIndex = "0";
   }
 };

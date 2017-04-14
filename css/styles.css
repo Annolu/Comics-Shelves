@@ -58,23 +58,23 @@ h1 {
     border-radius: 50%; }
     .spinner-wrapper .spinners.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
-      background: rgba(250, 0, 0, 0.8);
-      left: -23px;
-      border: 1px solid rgba(46, 0, 0, 0.8); }
+      background: rgba(250, 0, 0, 0.7);
+      left: 13px;
+      border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background: rgba(51, 51, 51, 0.8);
-      left: -23px;
+      left: -17px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
-      background: rgba(250, 0, 0, 0.8);
-      left: 7px;
-      border: 1px solid rgba(46, 0, 0, 0.8); }
+      background: rgba(250, 0, 0, 0.7);
+      left: 25px;
+      border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background: rgba(51, 51, 51, 0.8);
-      left: 6px;
+      left: -3px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners:after {
       content: '';
@@ -86,7 +86,7 @@ h1 {
       display: block;
       top: 2px;
       left: 2px;
-      border: 3px solid white;
+      border: 3px solid rgba(250, 250, 250, 0.9);
       border-top-color: transparent;
       border-right-color: transparent;
       border-bottom-color: transparent;
@@ -111,7 +111,7 @@ h1 {
     transform: translateY(0px) scale(1);
     opacity: 0; } }
 @keyframes ellipsis {
-  to {
+  100% {
     width: 25px; } }
 .wrapper {
   position: relative;
@@ -121,7 +121,6 @@ h1 {
     min-height: 500px;
     display: block;
     margin: 35px auto;
-    background-color: #111;
     position: relative;
     border-radius: 3px;
     width: 100%;
@@ -131,7 +130,7 @@ h1 {
     flex-wrap: wrap;
     position: relative; }
     .wrapper .content p {
-      color: white;
+      color: rgba(250, 250, 250, 0.9);
       font-size: 17px; }
   .wrapper .comic-wrapper {
     position: relative;
@@ -167,7 +166,8 @@ h1 {
     text-align: center;
     position: relative;
     top: 30%;
-    cursor: pointer; }
+    cursor: pointer;
+    transition: all 200ms ease; }
     .overlayer .comic-title:hover {
       text-decoration: underline; }
 
@@ -186,32 +186,33 @@ footer {
     color: rgba(250, 250, 250, 0.9); }
 
 .modal {
-  display: none;
   position: fixed;
   overflow-y: scroll;
-  z-index: 0;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   display: block;
-  transition: all 400ms ease-in-out; }
+  visibility: hidden;
+  transition: all 300ms ease-in-out; }
+  .modal.show-modal {
+    visibility: visible; }
   .modal .modal-content {
     margin: 2% auto;
     padding: 25px;
     position: relative;
     border: 1px solid black;
     width: 80%;
+    opacity: 0;
     box-sizing: border-box;
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
-    background-color: white;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
+    background-color: rgba(250, 250, 250, 0.9);
     transition: all 300ms ease-in-out;
-    transform: translateY(-150px);
-    opacity: 0; }
+    transform: translateY(-150px); }
     .modal .modal-content.slide-in {
       transform: translateY(0px);
       opacity: 1; }
@@ -253,7 +254,7 @@ footer {
         text-decoration: underline;
         cursor: pointer; }
   .modal .close {
-    color: #aaa;
+    color: #444;
     font-size: 28px;
     font-weight: bold;
     right: 25px;
@@ -281,7 +282,6 @@ footer {
     height: 120px;
     width: 120px;
     background-color: #111;
-    color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -305,7 +305,7 @@ footer {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: #111 transparent transparent transparent; }
+      border-color: rgba(250, 250, 250, 0.9) transparent transparent transparent; }
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1; }
@@ -322,7 +322,7 @@ footer {
     display: none; }
     .tooltip .circle.one {
       border: 3px solid #111;
-      border-top-color: white;
+      border-top-color: rgba(250, 250, 250, 0.9);
       animation: animateSpinner 1000ms ease infinite; }
     .tooltip .circle.two {
       bottom: 73px;
@@ -361,10 +361,5 @@ footer {
 
   .modal .modal-content {
     padding: 15px; } }
-/*
-.clearFix{
-  content: '';
-  clear: both;
-}*/
 
 /*# sourceMappingURL=styles.css.map */
