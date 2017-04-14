@@ -50,7 +50,7 @@ window.onload=function(){
       }else{
         parseData(data);
       }
-      //hideLoader();
+      hideLoader();
     })
     .fail(function(err){
       console.log(err);
