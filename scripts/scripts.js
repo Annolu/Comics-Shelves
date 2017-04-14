@@ -50,7 +50,7 @@ window.onload=function(){
       }else{
         parseData(data);
       }
-      hideLoader();
+      //hideLoader();
     })
     .fail(function(err){
       console.log(err);
@@ -214,34 +214,33 @@ window.onload=function(){
       }else{
         $('#characters').empty();
         for (item of characters){
-          $('#characters').append("<li class='single-character tooltip'>" +
+          var tooltip= "<li class='single-character tooltip'>" +
                                       "<span class='tooltiptext'>" +
                                       "<img></img>" +
                                         "<div class='circle one'></div>" +
                                         "<div class='circle two'></div>" +
-
                                       "</span>" +
-                                    "<p class='charName'>" + item + "</p>"+
-                                  "</li>");
+                                    "<p class='chars-names'>" + item + "</p>"+
+                                  "</li>"
+          $('#characters').append(tooltip);
         }
-        $('.single-character').mouseover(function(e){
+
+        $('.chars-names').mouseover(function(e){
           nameSearched= e.target.innerHTML;
-          fetchData(nameSearched);
+            fetchData(nameSearched);
         })
       }
     }
   }
 
   function addCreators(creators){
-    if(creators){
-      if(creators.length===0){
-        $('#creators').empty();
-        $('#creators').append("<li><p>Creators not available.</p></li>")
-      }else{
-        $('#creators').empty();
-        for (item of creators){
-          $('#creators').append("<li><p>" + item + "</p></li>")
-        }
+    if(creators.length===0){
+      $('#creators').empty();
+      $('#creators').append("<li><p>Creators not available.</p></li>")
+    }else{
+      $('#creators').empty();
+      for (item of creators){
+        $('#creators').append("<li><p>" + item + "</p></li>")
       }
     }
   }

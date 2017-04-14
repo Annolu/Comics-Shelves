@@ -12,8 +12,8 @@ h1 {
   font-weight: 300;
   text-align: center;
   margin: 0;
-  padding-top: 25px;
-  color: rgba(250, 250, 250, 0.9); }
+  padding: 35px;
+  color: #fafafa; }
 
 .spinner-wrapper {
   position: fixed;
@@ -32,7 +32,7 @@ h1 {
     width: 100%;
     font-size: 20px;
     font-weight: 300;
-    color: rgba(250, 250, 250, 0.9); }
+    color: #fafafa; }
     .spinner-wrapper p:after {
       overflow: hidden;
       display: inline-block;
@@ -59,22 +59,22 @@ h1 {
     .spinner-wrapper .spinners.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background: rgba(250, 0, 0, 0.7);
-      left: 13px;
+      left: 3px;
       border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background: rgba(51, 51, 51, 0.8);
-      left: -17px;
+      left: -8px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background: rgba(250, 0, 0, 0.7);
-      left: 25px;
+      left: 11px;
       border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background: rgba(51, 51, 51, 0.8);
-      left: -3px;
+      left: -5px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners:after {
       content: '';
@@ -86,7 +86,7 @@ h1 {
       display: block;
       top: 2px;
       left: 2px;
-      border: 3px solid rgba(250, 250, 250, 0.9);
+      border: 3px solid #fafafa;
       border-top-color: transparent;
       border-right-color: transparent;
       border-bottom-color: transparent;
@@ -120,7 +120,6 @@ h1 {
   .wrapper .content {
     min-height: 500px;
     display: block;
-    margin: 35px auto;
     position: relative;
     border-radius: 3px;
     width: 100%;
@@ -130,7 +129,7 @@ h1 {
     flex-wrap: wrap;
     position: relative; }
     .wrapper .content p {
-      color: rgba(250, 250, 250, 0.9);
+      color: #fafafa;
       font-size: 17px; }
   .wrapper .comic-wrapper {
     position: relative;
@@ -180,10 +179,9 @@ footer {
     font-size: 15px;
     font-weight: 300;
     text-align: center;
-    padding: 10px;
-    padding-bottom: 15px;
+    padding: 25px;
     margin: 0;
-    color: rgba(250, 250, 250, 0.9); }
+    color: #fafafa; }
 
 .modal {
   position: fixed;
@@ -193,12 +191,14 @@ footer {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  background-color: transparent;
   display: block;
   visibility: hidden;
   transition: all 300ms ease-in-out; }
   .modal.show-modal {
-    visibility: visible; }
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.7); }
   .modal .modal-content {
     margin: 2% auto;
     padding: 25px;
@@ -210,7 +210,7 @@ footer {
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
-    background-color: rgba(250, 250, 250, 0.9);
+    background-color: #fafafa;
     transition: all 300ms ease-in-out;
     transform: translateY(-150px); }
     .modal .modal-content.slide-in {
@@ -305,7 +305,7 @@ footer {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: rgba(250, 250, 250, 0.9) transparent transparent transparent; }
+      border-color: #111 transparent transparent transparent; }
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1; }
@@ -322,7 +322,7 @@ footer {
     display: none; }
     .tooltip .circle.one {
       border: 3px solid #111;
-      border-top-color: rgba(250, 250, 250, 0.9);
+      border-top-color: #fafafa;
       animation: animateSpinner 1000ms ease infinite; }
     .tooltip .circle.two {
       bottom: 73px;
@@ -340,7 +340,7 @@ footer {
   .modal {
     padding: 2%; }
     .modal .modal-content {
-      width: 96%;
+      width: 100%;
       margin: 0; }
     .modal img {
       margin: 0 auto;
@@ -355,9 +355,9 @@ footer {
     width: 50%; }
 
   .spinner-wrapper p {
-    bottom: 110px; }
+    bottom: 160px; }
   .spinner-wrapper .spinner-content {
-    bottom: 200px; }
+    bottom: 250px; }
 
   .modal .modal-content {
     padding: 15px; } }

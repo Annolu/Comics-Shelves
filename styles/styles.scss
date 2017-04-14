@@ -1,7 +1,7 @@
 $main-dark-opaque: #111;
 $main-dark-trans: rgba(0,0,0,0.7);
 $main-text-dark: #444;
-$main-colour-light: rgba(250,250,250,0.9);
+$main-colour-light: rgba(250,250,250,1);
 
 @import "_mixins";
 
@@ -21,7 +21,7 @@ h1{
   font-weight: 300;
   text-align: center;
   margin: 0;
-  padding-top: 25px;
+  padding: 35px;
   color: $main-colour-light;
 }
 
@@ -108,7 +108,6 @@ h1{
   .content{
     min-height: 500px;
     display: block;
-    margin: 35px auto;
     position: relative;
     border-radius: 3px;
     width: 100%;
@@ -184,8 +183,7 @@ footer{
     font-size: 15px;
     font-weight: 300;
     text-align: center;
-    padding: 10px;
-    padding-bottom: 15px;
+    padding: 25px;
     margin: 0;
     color: $main-colour-light;
   }
@@ -199,12 +197,14 @@ footer{
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: $main-dark-trans;
+  box-sizing: border-box;
+  background-color: transparent;
   display: block;
   visibility: hidden;
   transition: all 300ms ease-in-out;
   &.show-modal{
     visibility: visible;
+    background-color: $main-dark-trans;
   }
   .modal-content {
     margin: 2% auto;
@@ -334,7 +334,7 @@ footer{
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: $main-colour-light transparent transparent transparent;
+      border-color: $main-dark-opaque transparent transparent transparent;
     }
   }
   &:hover{
@@ -389,7 +389,7 @@ footer{
   .modal{
     padding: 2%;
     .modal-content{
-      width: 96%;
+      width: 100%;
       margin: 0;
     }
     img{
@@ -413,10 +413,10 @@ footer{
   }
   .spinner-wrapper{
     p{
-      bottom: 110px;
+      bottom: 160px;
     }
     .spinner-content{
-      bottom: 200px;
+      bottom: 250px;
     }
   }
   .modal{
