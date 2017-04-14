@@ -53,7 +53,14 @@ h1{
       position: absolute;
     }
   }
-  .spinner{
+  .spinner-content{
+    display: block;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    bottom: 300px;
+  }
+  .spinners{
     position: relative;
     opacity: 0;
     margin: 0 auto;
@@ -84,17 +91,6 @@ h1{
   }
 }
 
-.spinner-content{
-  display: block;
-  position: absolute;
-  margin: 0 auto;
-  width: 100%;
-  bottom: 300px;
-}
-
-//radial-gradient(circle at 50% 120%, #323232, #0a0a0a 80%, #999 100%)
-
-
 @include bubleAnimation(bubleUp, 70px, 1.2);
 @include bubleAnimation(bubleLower, 50px, 1);
 
@@ -109,59 +105,53 @@ h1{
   position: relative;
   width: 100%;
   background-color: $main-colour;
-}
-
-.content{
-  min-height: 500px;
-  display: block;
-  margin: 35px auto;
-  background-color: $main-colour;
-  position: relative;
-  border-radius: 3px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  position: relative;
-  p{
-    color: white;
-    font-size: 17px;
+  .content{
+    min-height: 500px;
+    display: block;
+    margin: 35px auto;
+    background-color: $main-colour;
+    position: relative;
+    border-radius: 3px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+    p{
+      color: white;
+      font-size: 17px;
+    }
+  }
+  .comic-wrapper{
+    position: relative;
+    opacity: 0;
+    width: 20%;
+    transform: scale(0);
+    &.comics-in{
+      animation: comicsIn 0.7s ease-out forwards;
+    }
+    &:hover{
+      .overlayer{
+        opacity: 1;
+      }
+    }
+    img{
+      display: block;
+      position: relative;
+      width: 100%;
+    }
   }
 }
 
 @keyframes comicsIn {
   0%{
-    transform: translateY(250px);
+    transform: scale(0);
     opacity: 0;
   }
   100%{
-    transform: translateY(0);
+    transform: scale(1);
     opacity: 1;
-  }
-}
-
-.comic-wrapper{
-  position: relative;
-  opacity: 0;
-  width: auto;
-  width: 20%;
-  transform-origin: left bottom;
-  transform: translateY(150px);
-  &.comics-in{
-    animation: comicsIn 0.5s cubic-bezier(0,.81,.86,.98) forwards;
-  }
-  &:hover{
-    .overlayer{
-      opacity: 1;
-    }
-  }
-  img{
-    display: block;
-    position: relative;
-    width: 100%;
-    backface-visibility: hidden;
-    transition: all 200ms ease;
   }
 }
 
@@ -214,16 +204,14 @@ footer{
   background-color: rgba(0,0,0,0.4);
   display: block;
   transition: all 400ms ease-in-out;
+  // pointer-events: none;
   .modal-content {
-    // max-height: 570px;
     margin: 2% auto;
     padding: 25px;
     position: relative;
     border: 1px solid black;
     width: 80%;
-    // overflow-y: scroll;
     box-sizing: border-box;
-    // border-radius: 10px;
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
@@ -231,7 +219,6 @@ footer{
     transition: all 300ms ease-in-out;
     transform: translateY(-150px);
     opacity: 0;
-
     &.slide-in{
       transform: translateY(0px);
       opacity: 1;
@@ -267,7 +254,6 @@ footer{
     padding-left: 20px;
     display: inline-block;
     float: left;
-    overflow-y: hidden;
     box-sizing: border-box;
     font-weight: 300;
     .creators, .characters, .comics{
@@ -285,7 +271,6 @@ footer{
           cursor: pointer;
         }
       }
-
     }
   }
   .close {
@@ -311,15 +296,6 @@ footer{
   &:nth-child(2){
     padding-left: 13px;
   }
-
-}
-
-.something{
-  &:after{
-    content: "";
-    display: table;
-    clear: both;
-  }
 }
 
 .bg-noscroll{
@@ -329,7 +305,7 @@ footer{
 .tooltip{
   position: relative;
   .tooltiptext {
-    display: none;
+    // display: none;
     height: 120px;
     width: 120px;
     background-color: $main-colour;
@@ -341,6 +317,8 @@ footer{
     z-index: 1;
     bottom: 100%;
     left: 0;
+    visibility: hidden;
+    opacity: 0;
     transition: all 200ms ease;
     img{
       max-height: 100%;
@@ -361,30 +339,31 @@ footer{
   }
   &:hover{
     .tooltiptext {
-      display: block;
+      visibility: visible;
+      opacity: 1;
     }
     .circle{
       display: block;
     }
   }
-}
-.circle{
-  position: relative;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: 35px;
-  left: 30%;
-  display: none;
-  &.one{
-    border: 3px solid $main-colour;
-    border-top-color: white;
-    animation: animateSpinner 1000ms ease-in-out infinite;
-  }
-  &.two{
-    bottom: 73px;
-    left: 3px;
+  .circle{
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 35px;
+    left: 30%;
+    display: none;
+    &.one{
+      border: 3px solid $main-colour;
+      border-top-color: white;
+      animation: animateSpinner 1000ms ease infinite;
+    }
+    &.two{
+      bottom: 73px;
+      left: 3px;
+    }
   }
 }
 
@@ -398,8 +377,10 @@ footer{
 }
 
 @media (max-width: 880px){
-  .comic-wrapper{
-    width: 25%;
+  .content{
+    .comic-wrapper{
+      width: 25%;
+    }
   }
 }
 
@@ -425,15 +406,17 @@ footer{
 }
 
 @media (max-width: 550px) {
-  .comic-wrapper{
-    width: 50%;
-  }
-  .spinner-content{
-    bottom: 200px;
+  .content{
+    .comic-wrapper{
+      width: 50%;
+    }
   }
   .spinner-wrapper{
     p{
       bottom: 110px;
+    }
+    .spinner-content{
+      bottom: 200px;
     }
   }
   .modal{

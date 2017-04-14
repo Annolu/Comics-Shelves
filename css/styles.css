@@ -42,7 +42,13 @@ h1 {
       content: "\2026";
       width: 0px;
       position: absolute; }
-  .spinner-wrapper .spinner {
+  .spinner-wrapper .spinner-content {
+    display: block;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    bottom: 300px; }
+  .spinner-wrapper .spinners {
     position: relative;
     opacity: 0;
     margin: 0 auto;
@@ -50,27 +56,27 @@ h1 {
     height: 25px;
     width: 25px;
     border-radius: 50%; }
-    .spinner-wrapper .spinner.buble-1 {
+    .spinner-wrapper .spinners.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background: rgba(250, 0, 0, 0.8);
-      left: 16px;
+      left: -23px;
       border: 1px solid rgba(46, 0, 0, 0.8); }
-    .spinner-wrapper .spinner.buble-2 {
+    .spinner-wrapper .spinners.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background: rgba(51, 51, 51, 0.8);
-      left: 17px;
+      left: -23px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
-    .spinner-wrapper .spinner.buble-3 {
+    .spinner-wrapper .spinners.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background: rgba(250, 0, 0, 0.8);
-      left: -14px;
+      left: 7px;
       border: 1px solid rgba(46, 0, 0, 0.8); }
-    .spinner-wrapper .spinner.buble-4 {
+    .spinner-wrapper .spinners.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background: rgba(51, 51, 51, 0.8);
-      left: -16px;
+      left: 6px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
-    .spinner-wrapper .spinner:after {
+    .spinner-wrapper .spinners:after {
       content: '';
       position: absolute;
       text-align: center;
@@ -85,13 +91,6 @@ h1 {
       border-right-color: transparent;
       border-bottom-color: transparent;
       transform: rotate(40deg); }
-
-.spinner-content {
-  display: block;
-  position: absolute;
-  margin: 0 auto;
-  width: 100%;
-  bottom: 300px; }
 
 @keyframes bubleUp {
   0% {
@@ -118,49 +117,43 @@ h1 {
   position: relative;
   width: 100%;
   background-color: #111; }
-
-.content {
-  min-height: 500px;
-  display: block;
-  margin: 35px auto;
-  background-color: #111;
-  position: relative;
-  border-radius: 3px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  position: relative; }
-  .content p {
-    color: white;
-    font-size: 17px; }
+  .wrapper .content {
+    min-height: 500px;
+    display: block;
+    margin: 35px auto;
+    background-color: #111;
+    position: relative;
+    border-radius: 3px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    position: relative; }
+    .wrapper .content p {
+      color: white;
+      font-size: 17px; }
+  .wrapper .comic-wrapper {
+    position: relative;
+    opacity: 0;
+    width: 20%;
+    transform: scale(0); }
+    .wrapper .comic-wrapper.comics-in {
+      animation: comicsIn 0.7s ease-out forwards; }
+    .wrapper .comic-wrapper:hover .overlayer {
+      opacity: 1; }
+    .wrapper .comic-wrapper img {
+      display: block;
+      position: relative;
+      width: 100%; }
 
 @keyframes comicsIn {
   0% {
-    transform: translateY(250px);
+    transform: scale(0);
     opacity: 0; }
   100% {
-    transform: translateY(0);
+    transform: scale(1);
     opacity: 1; } }
-.comic-wrapper {
-  position: relative;
-  opacity: 0;
-  width: auto;
-  width: 20%;
-  transform-origin: left bottom;
-  transform: translateY(150px); }
-  .comic-wrapper.comics-in {
-    animation: comicsIn 0.5s cubic-bezier(0, 0.81, 0.86, 0.98) forwards; }
-  .comic-wrapper:hover .overlayer {
-    opacity: 1; }
-  .comic-wrapper img {
-    display: block;
-    position: relative;
-    width: 100%;
-    backface-visibility: hidden;
-    transition: all 200ms ease; }
-
 .overlayer {
   position: absolute;
   opacity: 0;
@@ -247,7 +240,6 @@ footer {
     padding-left: 20px;
     display: inline-block;
     float: left;
-    overflow-y: hidden;
     box-sizing: border-box;
     font-weight: 300; }
     .modal .comic-info .creators, .modal .comic-info .characters, .modal .comic-info .comics {
@@ -280,18 +272,12 @@ footer {
   .chars-creat:nth-child(2) {
     padding-left: 13px; }
 
-.something:after {
-  content: "";
-  display: table;
-  clear: both; }
-
 .bg-noscroll {
   overflow: hidden; }
 
 .tooltip {
   position: relative; }
   .tooltip .tooltiptext {
-    display: none;
     height: 120px;
     width: 120px;
     background-color: #111;
@@ -303,6 +289,8 @@ footer {
     z-index: 1;
     bottom: 100%;
     left: 0;
+    visibility: hidden;
+    opacity: 0;
     transition: all 200ms ease; }
     .tooltip .tooltiptext img {
       max-height: 100%;
@@ -319,26 +307,26 @@ footer {
       border-style: solid;
       border-color: #111 transparent transparent transparent; }
   .tooltip:hover .tooltiptext {
-    display: block; }
+    visibility: visible;
+    opacity: 1; }
   .tooltip:hover .circle {
     display: block; }
-
-.circle {
-  position: relative;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  position: absolute;
-  top: 35px;
-  left: 30%;
-  display: none; }
-  .circle.one {
-    border: 3px solid #111;
-    border-top-color: white;
-    animation: animateSpinner 1000ms ease-in-out infinite; }
-  .circle.two {
-    bottom: 73px;
-    left: 3px; }
+  .tooltip .circle {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: 35px;
+    left: 30%;
+    display: none; }
+    .tooltip .circle.one {
+      border: 3px solid #111;
+      border-top-color: white;
+      animation: animateSpinner 1000ms ease infinite; }
+    .tooltip .circle.two {
+      bottom: 73px;
+      left: 3px; }
 
 @keyframes animateSpinner {
   0% {
@@ -346,7 +334,7 @@ footer {
   100% {
     transform: rotate(360deg); } }
 @media (max-width: 880px) {
-  .comic-wrapper {
+  .content .comic-wrapper {
     width: 25%; } }
 @media (max-width: 770px) {
   .modal {
@@ -363,14 +351,13 @@ footer {
       float: none;
       padding-left: 0px; } }
 @media (max-width: 550px) {
-  .comic-wrapper {
+  .content .comic-wrapper {
     width: 50%; }
-
-  .spinner-content {
-    bottom: 200px; }
 
   .spinner-wrapper p {
     bottom: 110px; }
+  .spinner-wrapper .spinner-content {
+    bottom: 200px; }
 
   .modal .modal-content {
     padding: 15px; } }

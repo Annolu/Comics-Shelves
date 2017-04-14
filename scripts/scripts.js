@@ -12,24 +12,27 @@ window.onload=function(){
     $('.spinner-wrapper').prepend("<div class='spinner-content'></div>")
     $('.spinner-wrapper').append("<p>Loading</p>")
     for (var i = 1; i < 5; i++) {
-      $('.spinner-content').append("<div class='spinner buble-" + i + "'></div>")
+      $('.spinner-content').append("<div class='spinners buble-" + i + "'></div>")
     }
   }
 
-  var nameSearched;
-
   createLoader()
 
+  var nameSearched;
   var PRIV_KEY = "c489aff329d83d09815b554f38d843ba42a5061a";
   var PUBLIC_KEY = "2a7fca050595ffa66aaf74e2b1bae70f";
   // new ts every request
   var ts = new Date().getTime();
   var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
 
+
+  //use the comics url to get the comics covers at the beginning
   var url = 'https://gateway.marvel.com/v1/public/comics';
 
   fetchData(nameSearched);
+
   function fetchData(nameSearched){
+    //use the characters url to get characters informations, only when hover over them. The nameSearched is obtained through the hover's e.target
     if(nameSearched){
       url = 'https://gateway.marvel.com/v1/public' + '/characters';
     }
@@ -41,6 +44,7 @@ window.onload=function(){
       hash: hash
     })
     .done(function(data) {
+      //if the length is one it means that data that came back belongs to a character
       if(data.data.results.length===1){
         createCharsObj(data);
       }else{
@@ -58,7 +62,7 @@ window.onload=function(){
     var character= data.data.results[0];
     var imageSrc= character.thumbnail.path + "." + character.thumbnail.extension;
     let listOfCharacters= $('.single-character');
-
+    //get the characters imgs and put them in the tooltip
     for (item of listOfCharacters){
       if(item.children[1].innerHTML== character.name){
         var imgTag= $(item.children[0].children[0]);
@@ -68,21 +72,21 @@ window.onload=function(){
   }
 
   function hideLoader(){
-    preloaderFadeOutTime= 500;
+    preloaderFadeOutTime= 300;
     function hidePreloader(){
       var preloader= $('.spinner-wrapper');
       preloader.fadeOut(preloaderFadeOutTime)
     }
     hidePreloader();
-
   }
 
   function parseData(data) {
     var listOfComics= data.data.results;
     var myComicsDetails= [];
+
     listOfComics.forEach(function(singleComic){
       var imgUrl=singleComic.thumbnail.path;
-
+      //gather informations only of comics that have a cover image
       if(imgUrl.split('_')[1]!=="not"){
         var comic= gatherComicsDetails(singleComic, myComicsDetails);
         var comicWrapper= "<div class='comic-wrapper' >" +
@@ -97,11 +101,12 @@ window.onload=function(){
     openOnClick(myComicsDetails);
   };
 
+  //initial animation after spinner disappear
   function animateComics(){
     $.each($(".comic-wrapper"), function( index, item ) {
       setTimeout(function(){
         $(item).addClass('comics-in');
-      }, 200 + ( index * 200 ));
+      }, 200 + (Math.floor(Math.random()* 800)));
     });
   }
 
@@ -115,11 +120,10 @@ window.onload=function(){
     for (item of listOfAllCreators){
       creatorsNames.push(item.name + " as: " + item.role);
     }
-
     for (item of listOfAllChars){
       charactersNames.push(item.name);
     }
-    //console.log(singleComic.id);
+
     var comic={
       title: singleComic.title,
       id: singleComic.id,
@@ -160,7 +164,7 @@ window.onload=function(){
     for (item of myComicsDetails){
       // parseInt because otherwise one is a string and the other is a number
       if(parseInt(comicID,10) === item.id){
-        //date of the comic I clicked on
+        //data of the comic I clicked on
         var modalData= {
           title:item.title,
           description: item.description,
@@ -184,13 +188,7 @@ window.onload=function(){
     addPageCount(pageCount)
     addDescription(description)
     addCreators(creators)
-
-
-    if(characters){
-      addCharacters(characters)
-    }else{
-      $('#characters').empty();
-    }
+    addCharacters(characters)
   }
 
   function addPageCount(pageCount){
@@ -230,8 +228,6 @@ window.onload=function(){
         }
         $('.single-character').mouseover(function(e){
           nameSearched= e.target.innerHTML;
-          //e.target.parentElement.children[0].children[1].style.display= 'block';
-          //$('.circle').fadeIn();
           fetchData(nameSearched);
         })
       }
@@ -252,17 +248,15 @@ window.onload=function(){
     }
   }
 
-  var span = document.getElementsByClassName("close")[0];
-
-  span.onclick = function() {
+  $('.close').click(function() {
     closeModal()
-  }
+  })
 
-  window.onclick = function(event) {
+  $(window).click(function(event) {
     if (event.target == modal) {
       closeModal()
     }
-  }
+  });
 
   function closeModal(){
     $('body').removeClass('bg-noscroll');
