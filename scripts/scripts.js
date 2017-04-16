@@ -96,17 +96,28 @@ window.onload=function(){
         $('#content').append(comicWrapper);
       }
     })
-    animateComics()
+    animateHeader();
+    animateComics();
     //detects the click that opens the modal
     openOnClick(myComicsDetails);
+    $(window).resize(function(){
+      if($(document).width()< 550){
+        animateComics();
+      }
+    })
   };
+
+  function animateHeader(){
+    $('header span').addClass('header-in');
+    $('header h1').addClass('header-in');
+  }
 
   //initial animation after spinner disappear
   function animateComics(){
     $.each($(".comic-wrapper"), function( index, item ) {
       setTimeout(function(){
         $(item).addClass('comics-in');
-      }, 200 + (Math.floor(Math.random()* 800)));
+      }, 200 + (Math.floor(Math.random()* 1200)));
     });
   }
 
