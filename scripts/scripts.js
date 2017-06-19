@@ -1,13 +1,5 @@
 window.onload=function(){
 
-/*
-  //get name from input
-  $('#input-form').submit(function(e) {
-    e.preventDefault();
-    var nameSearched= $('#input').val();
-    getMarvelResponse(nameSearched);
-  });*/
-
   function createLoader(){
     $('.spinner-wrapper').prepend("<div class='spinner-content'></div>")
     $('.spinner-wrapper').append("<p>Loading</p>")
@@ -17,14 +9,13 @@ window.onload=function(){
   }
 
   createLoader()
-
+  //data necessary for marvel url
   var nameSearched;
   var PRIV_KEY = "c489aff329d83d09815b554f38d843ba42a5061a";
   var PUBLIC_KEY = "2a7fca050595ffa66aaf74e2b1bae70f";
   // new ts every request
   var ts = new Date().getTime();
   var hash = CryptoJS.MD5(ts + PRIV_KEY + PUBLIC_KEY).toString();
-
 
   //use the comics url to get the comics covers at the beginning
   var url = 'https://gateway.marvel.com/v1/public/comics';
@@ -34,7 +25,7 @@ window.onload=function(){
   function fetchData(nameSearched){
     //use the characters url to get characters informations, only when hover over them. The nameSearched is obtained through the hover's e.target
     if(nameSearched){
-      url = 'https://gateway.marvel.com/v1/public' + '/characters';
+      url = 'https://gateway.marvel.com/v1/public/characters';
     }
     $.getJSON(url, {
       ts: ts,
@@ -44,10 +35,11 @@ window.onload=function(){
       hash: hash
     })
     .done(function(data) {
-      //if the length is one it means that data that came back belongs to a character
+      //if the length is one it means that data that came back belongs to a single character (for modal tooltip)
       if(data.data.results.length===1){
-        createCharsObj(data);
+        findCharPicture(data);
       }else{
+      //otherwise 'data' corresponds to the entire list of comics
         parseData(data);
       }
       hideLoader();
@@ -56,28 +48,29 @@ window.onload=function(){
       console.log(err);
     });
   }
-
-  function createCharsObj(data){
-
+  //find img for modal tooltip
+  function findCharPicture(data){
     var character= data.data.results[0];
     var imageSrc= character.thumbnail.path + "." + character.thumbnail.extension;
-    let listOfCharacters= $('.single-character');
+    var listOfCharacters= $('.single-character');
     //get the characters imgs and put them in the tooltip
     for (item of listOfCharacters){
       if(item.children[1].innerHTML== character.name){
         var imgTag= $(item.children[0].children[0]);
         imgTag.attr("src", imageSrc);
+        linkToMarvelPage(character, $(item.children[1]));
       }
     }
   }
+  //add link to marvel website for the list of characters
+  function linkToMarvelPage(character, selectedChar){
+    charImgSrc= character.urls[0].url;
+    selectedChar.attr('href', charImgSrc);
+  }
 
   function hideLoader(){
-    preloaderFadeOutTime= 300;
-    function hidePreloader(){
-      var preloader= $('.spinner-wrapper');
-      preloader.fadeOut(preloaderFadeOutTime)
-    }
-    hidePreloader();
+    var preloader= $('.spinner-wrapper');
+    preloader.fadeOut(300)
   }
 
   function parseData(data) {
@@ -88,6 +81,7 @@ window.onload=function(){
       var imgUrl=singleComic.thumbnail.path;
       //gather informations only of comics that have a cover image
       if(imgUrl.split('_')[1]!=="not"){
+        //info for comics grid
         var comic= gatherComicsDetails(singleComic, myComicsDetails);
         var comicWrapper= "<div class='comic-wrapper' >" +
                         "<div class='overlayer'><p class='comic-title' id='" + comic.id + "'>" + comic.title + "</p></div>" +
@@ -100,16 +94,10 @@ window.onload=function(){
     animateComics();
     //detects the click that opens the modal
     openOnClick(myComicsDetails);
-    $(window).resize(function(){
-      if($(document).width()< 550){
-        animateComics();
-      }
-    })
   };
 
   function animateHeader(){
-    $('header span').addClass('header-in');
-    $('header h1').addClass('header-in');
+    $('header span, header h1').addClass('header-in');
   }
 
   //initial animation after spinner disappear
@@ -190,7 +178,7 @@ window.onload=function(){
 
   function addContent(modalData){
     //ecmascript6 destructing assignment
-    let {title, description, imageSrc,characters, pageCount, creators} = modalData;
+    var {title, description, imageSrc,characters, pageCount, creators} = modalData;
 
     $('#title').html(title);
     $('#comicImage').attr("src", imageSrc);
@@ -231,14 +219,15 @@ window.onload=function(){
                                         "<div class='circle one'></div>" +
                                         "<div class='circle two'></div>" +
                                       "</span>" +
-                                    "<p class='chars-names'>" + item + "</p>"+
+                                    "<a class='chars-names' target='_blank'>" + item + "</a>"+
                                   "</li>"
           $('#characters').append(tooltip);
         }
 
         $('.chars-names').mouseover(function(e){
           nameSearched= e.target.innerHTML;
-            fetchData(nameSearched);
+          //second request to marvel, this time for the single character images in the tooltip.
+          fetchData(nameSearched);
         })
       }
     }

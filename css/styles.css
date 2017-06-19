@@ -5,7 +5,8 @@ body, html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Lato', sans-serif;
+  font-weight: 500; }
 
 .spinner-wrapper {
   position: fixed;
@@ -22,7 +23,7 @@ body {
     display: block;
     margin: 0 auto;
     width: 100%;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 300;
     color: #fafafa; }
     .spinner-wrapper p:after {
@@ -51,22 +52,22 @@ body {
     .spinner-wrapper .spinners.buble-1 {
       animation: bubleUp 1.5s linear infinite 0s;
       background: rgba(250, 0, 0, 0.7);
-      left: 1px;
+      left: -3px;
       border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-2 {
       animation: bubleLower 1.2s linear infinite 220ms;
       background: rgba(51, 51, 51, 0.8);
-      left: 11px;
+      left: 16px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners.buble-3 {
       animation: bubleUp 1s linear infinite 470ms;
       background: rgba(250, 0, 0, 0.7);
-      left: 1px;
+      left: 22px;
       border: 1px solid rgba(46, 0, 0, 0.7); }
     .spinner-wrapper .spinners.buble-4 {
       animation: bubleLower 1.7s linear infinite 370ms;
       background: rgba(51, 51, 51, 0.8);
-      left: 18px;
+      left: -23px;
       border: 1px solid rgba(0, 0, 0, 0.8); }
     .spinner-wrapper .spinners:after {
       content: '';
@@ -236,7 +237,20 @@ footer {
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.7);
-    background-color: #fafafa;
+    background: -moz-linear-gradient(269deg, rgba(255, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.99) 47%, black 50%);
+    /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 0, 0, 0.95)), color-stop(47%, rgba(0, 0, 0, 0.99)), color-stop(50%, black));
+    /* safari4+,chrome */
+    background: -webkit-linear-gradient(269deg, rgba(255, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.99) 47%, black 50%);
+    /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(269deg, rgba(255, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.99) 47%, black 50%);
+    /* opera 11.10+ */
+    background: -ms-linear-gradient(269deg, rgba(255, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.99) 47%, black 50%);
+    /* ie10+ */
+    background: linear-gradient(181deg, rgba(255, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.99) 47%, black 50%);
+    /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#000000',GradientType=0 );
+    /* ie6-9 */
     transition: all 300ms ease-in-out;
     transform: translateY(-150px); }
     .modal .modal-content.slide-in {
@@ -253,7 +267,7 @@ footer {
   .modal h2, .modal h3 {
     font-weight: 300;
     font-size: 17px;
-    color: #444;
+    color: #ccc;
     font-weight: 500; }
   .modal h2 {
     margin-top: 0; }
@@ -261,7 +275,16 @@ footer {
     font-size: 13px;
     line-height: 22px;
     margin: 0;
-    color: #444; }
+    color: #ccc;
+    font-weight: 500; }
+  .modal a {
+    color: rgba(255, 0, 0, 0.7);
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500; }
+    .modal a:hover {
+      text-decoration: underline; }
   .modal .comic-info {
     width: 62%;
     padding-left: 20px;
@@ -274,11 +297,8 @@ footer {
       margin: 8px 0; }
       .modal .comic-info .creators li, .modal .comic-info .characters li, .modal .comic-info .comics li {
         list-style-type: none; }
-    .modal .comic-info .single-character p {
-      color: #76b5d8; }
-      .modal .comic-info .single-character p:hover {
-        text-decoration: underline;
-        cursor: pointer; }
+    .modal .comic-info .single-character {
+      display: table; }
   .modal .close {
     color: #444;
     font-size: 28px;
